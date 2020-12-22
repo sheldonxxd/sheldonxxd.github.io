@@ -1,33 +1,19 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="发现我的ubuntu主机无法连接到eduroam的无线网，而连接sjtu又会无法访问gitlab，所以这个事情目前我能想到的办法，就是让这台主机用无线网卡连接SJTU，用有限网卡连接一个无线路由器，然后大家如果要访问gitlab，就先连接路由器的WiFi，然后输入固定IP地址。为了验证这个思路，我打算现在自己家里尝试一下，使用hexo构建一个轻博客网站。">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="我打算用hexo结合gitee pages构建一个轻博客网站，每周发表一篇博文。虽然gitee没有https，刷新慢，但国内访问速度要比github好一点。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用github-pages搭建Hexo博客">
-<meta property="og:url" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="发现我的ubuntu主机无法连接到eduroam的无线网，而连接sjtu又会无法访问gitlab，所以这个事情目前我能想到的办法，就是让这台主机用无线网卡连接SJTU，用有限网卡连接一个无线路由器，然后大家如果要访问gitlab，就先连接路由器的WiFi，然后输入固定IP地址。为了验证这个思路，我打算现在自己家里尝试一下，使用hexo构建一个轻博客网站。">
+<meta property="og:title" content="在gitee-pages搭建Hexo博客">
+<meta property="og:url" content="https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/index.html">
+<meta property="og:site_name" content="Sea">
+<meta property="og:description" content="我打算用hexo结合gitee pages构建一个轻博客网站，每周发表一篇博文。虽然gitee没有https，刷新慢，但国内访问速度要比github好一点。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201219191428934.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201219191755020.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201219191837211.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201219193247229.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201219194031980.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220102718378.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220102842224.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220105253599.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220105841604.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220105949497.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220115451131.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220115645752.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220120324605.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220140719776.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220140745771.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201220140908435.png">
-<meta property="og:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201221093551678.png">
+<meta property="og:image" content="https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/image-20201220102718378.png">
+<meta property="og:image" content="https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/image-20201220102842224.png">
+<meta property="og:image" content="https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/image-20201220104346063.png">
 <meta property="article:published_time" content="2020-12-20T12:32:33.000Z">
-<meta property="article:modified_time" content="2020-12-21T01:35:57.725Z">
+<meta property="article:modified_time" content="2020-12-21T02:49:36.828Z">
 <meta property="article:author" content="Xiaodong Xie">
 <meta property="article:tag" content="hexo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/image-20201219191428934.png"><title>利用github-pages搭建Hexo博客 | Hexo</title><link ref="canonical" href="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+<meta name="twitter:image" content="https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/image-20201220102718378.png"><title>在gitee-pages搭建Hexo博客 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -51,118 +37,330 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="http://sheldonxxd.gitee.io"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Hexo</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">利用github-pages搭建Hexo博客</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-12-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-12-21</span></span></div></header><div class="post-body"><p>发现我的ubuntu主机无法连接到eduroam的无线网，而连接sjtu又会无法访问gitlab，所以这个事情目前我能想到的办法，就是让这台主机用无线网卡连接SJTU，用有限网卡连接一个无线路由器，然后大家如果要访问gitlab，就先连接路由器的WiFi，然后输入固定IP地址。为了验证这个思路，我打算现在自己家里尝试一下，使用hexo构建一个轻博客网站。</p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" target="_blank" rel="noopener" href="http://sheldonxxd.gitee.io"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">在gitee-pages搭建Hexo博客</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-12-20</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-12-21</span></span></div></header><div class="post-body"><p>我打算用hexo结合gitee pages构建一个轻博客网站，每周发表一篇博文。虽然gitee没有https，刷新慢，但国内访问速度要比github好一点。</p>
 <a id="more"></a>
 
 
-        <h3 id="在家搭建局域网Hexo网站">
-          <a href="#在家搭建局域网Hexo网站" class="heading-link"><i class="fas fa-link"></i></a>在家搭建局域网Hexo网站</h3>
-      <p>先看Hexo的文档：</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">https://hexo.io/zh-cn/docs/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>然后安装一下nodejs，才能使用npm命令：</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/nodesource/distributions#debinstall">https://github.com/nodesource/distributions#debinstall</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>尝试了一下，可能是因为在deepin里边，我直接用以下命令即可安装：</p>
-<p><code>sudo apt-get install npm</code></p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201219191428934.png" alt="image-20201219191428934"></p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201219191755020.png" alt="image-20201219191755020"></p>
-<p>结果这样安装的nodejs是10.19的版本，还好还好，勉强可以搞。</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201219191837211.png" alt="image-20201219191837211"></p>
-<p>但是在调用npm的时候报错，所以还是尝试<code>upgrade</code>了一下nodejs，发现是可以的。</p>
-<blockquote>
-<p>update是更新软件列表，upgrade是更新软件</p>
-</blockquote>
-<p>但是我感觉自己执行命令之后，似乎把所有的软件都更新了，哎。然后版本并没有变化。所以我就还是安装着把！如果下一次要弄，我还是选择ubuntu18.04，因为u-net实际上只支持到这个版本，jupyterhub也是推荐这个版本。</p>
-<p>然后运行一下命令安装hexo：</p>
-<p><code>sudo npm npm install -g hexo-cli</code></p>
-<p>然后把hexo添加到系统环境变量中：</p>
-<p><code>echo &#39;PATH=&quot;$PATH:./node_modules/.bin&quot;&#39; &gt;&gt; ~/.profile</code></p>
-<p>接下来新建一个目录，然后使用hexo命令进行初始化：</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201219193247229.png" alt="image-20201219193247229"></p>
-<p>但是由于网速不好，这里半天都不动弹。本来我是想安装jupyterhub的，但是也是因为网络因素，无法翻墙，所以就没能成功。</p>
-<p>接着就是进入目录内，进行安装。</p>
-<p><code>cd hexo-website</code></p>
-<p><code>npm install</code></p>
-<p>接下来就是到<code>_config.yaml</code>文件中修改网站配置了。具体可以参考：</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/configuration">https://hexo.io/zh-cn/docs/configuration</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>但是对我来说，仅仅是想验证一下，所以把网址修改为自己的固定ip地址，然后从局域网其他设备访问这个地址试一下。</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201219194031980.png" alt="image-20201219194031980"></p>
-<p>然后运行命令，开启网站服务器：</p>
-<p><code>hexo s</code></p>
-<p>然后就可以在手机浏览器中输入地址</p>
-<p><code>http://192.168.0.20:4000/</code>即可访问，真棒！</p>
-<p>但是需要注意的是，这种策略要求client连接到局域网路由，如果路由器没有连接外网，在这段时间内就不能访问外网了。</p>
-
-        <h3 id="部署hexo主题">
-          <a href="#部署hexo主题" class="heading-link"><i class="fas fa-link"></i></a>部署hexo主题</h3>
-      <p>我之前选择了一款叫做<strong>A-Snail</strong>的主题，还不错。现在更喜欢<strong>stun</strong>这个主题，它们的链接都附上，然后开始部署<strong>stun</strong>主题</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.dusign.net/">https://www.dusign.net/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://liuyib.github.io/">https://liuyib.github.io/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>部署参考github上的说明：</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://github.com/liuyib/hexo-theme-stun">https://github.com/liuyib/hexo-theme-stun</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>然后stun主题文档可以访问：</p>
+        <h3 id="参考教程">
+          <a href="#参考教程" class="heading-link"><i class="fas fa-link"></i></a>参考教程</h3>
+      <p>使用hexo建站到github page的完整教程推荐如下：</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/78467553">https://zhuanlan.zhihu.com/p/78467553</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017986794">https://segmentfault.com/a/1190000017986794</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://theme-stun.github.io/docs/zh-CN/">https://theme-stun.github.io/docs/zh-CN/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">https://hexo.io/zh-cn/index.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
 
-        <h3 id="解决hexo和typora搭配的问题">
-          <a href="#解决hexo和typora搭配的问题" class="heading-link"><i class="fas fa-link"></i></a>解决hexo和typora搭配的问题</h3>
-      <p>我经常使用typora写markdown，然后一些插图会放在同名目录下，但是hexo默认状态下不能显示这些图片，所以还需要一些设置。可以参考：</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.cnblogs.com/caoayu/articles/13855081.html">https://www.cnblogs.com/caoayu/articles/13855081.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+        <h3 id="使用Stun主题">
+          <a href="#使用Stun主题" class="heading-link"><i class="fas fa-link"></i></a>使用Stun主题</h3>
+      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://theme-stun.github.io/docs/zh-CN/guide/quick-start.html#%E5%AE%89%E8%A3%85">stun主题</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>比较好看，我还稍微配置了一下可以<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.cnblogs.com/caoayu/articles/13855081.html">跟typora连用</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>（主要是为了能够正常显示插图和附件）。</p>
+<!-- more -->
 
-        <h3 id="在hexo上发布第一篇文章做测试">
-          <a href="#在hexo上发布第一篇文章做测试" class="heading-link"><i class="fas fa-link"></i></a>在hexo上发布第一篇文章做测试</h3>
-      <p>然后创建一个文档测试一下（推荐尽量使用<code>hexo new</code>命令）：</p>
+<p>然后我就用命令创建了这第一篇文章测试一下：</p>
 <p><img src="/2020/12/20/setupHexoWebsite/image-20201220102718378.png" alt="image-20201220102718378"></p>
 <p>再到目录下，打开这个test的markdown文件，可以看到开头是有一个yaml的记录：</p>
 <p><img src="/2020/12/20/setupHexoWebsite/image-20201220102842224.png" alt="image-20201220102842224"></p>
-<p>然后写了一个简单的文章，发布了一下，大功告成：</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220105253599.png" alt="image-20201220105253599"></p>
+<p>结果运行命令<code>hexo g &amp;&amp; hexo s</code>之后报错：</p>
+<p><img src="/2020/12/20/setupHexoWebsite/image-20201220104346063.png" alt="image-20201220104346063"></p>
+<p>其实是因为tags得是list，而yaml语法决定了我直接写一个是不行的。</p>
 
-        <h3 id="配置hexo主题">
-          <a href="#配置hexo主题" class="heading-link"><i class="fas fa-link"></i></a>配置hexo主题</h3>
-      <p>默认没有开启tag和category，所以要到hexo的根目录执行命令如下：</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220105841604.png" alt="image-20201220105841604"></p>
-<p>然后修改Front Matter：</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220105949497.png" alt="image-20201220105949497"></p>
-<p>然后要修改stun主题下的配置文件，取消注释，具体都可以参考stun主题的文档：</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://theme-stun.github.io/docs/zh-CN/guide/primary.html#%E6%B7%BB%E5%8A%A0%E6%96%B0%E9%A1%B5%E9%9D%A2">https://theme-stun.github.io/docs/zh-CN/guide/primary.html#%E6%B7%BB%E5%8A%A0%E6%96%B0%E9%A1%B5%E9%9D%A2</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220115451131.png" alt="image-20201220115451131"></p>
-<p>我主要是修改一些header的大图，以及sidebar的author信息。</p>
-<p>然后注意开启站点，<strong>只能在hexo的根目录</strong>用命令行进行操作，不然会报错：</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220115645752.png" alt="image-20201220115645752"></p>
-<p>如果修改了配置，注意<strong>clean</strong>，这样会清空整个public目录，重新generate，但是会比较费时间。如果平时情况，直接<code>hexo g &amp;&amp; hexo s</code>即可。</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220120324605.png" alt="image-20201220120324605"></p>
-<p>但是要注意，如果想让主页只显示摘要，得自己在文章中定义分割线：</p>
-<blockquote>
-<p>如果想要保留文章摘要，你需要在文章的 Markdown 源文件中添加 <code>&lt;!-- more --&gt;</code> 标记。标记之前的部分都会被保留为文章摘要，显示在文章列表中。</p>
-</blockquote>
+        <h3 id="需要安装的插件列表">
+          <a href="#需要安装的插件列表" class="heading-link"><i class="fas fa-link"></i></a>需要安装的插件列表</h3>
+      <ol>
+<li>git相关插件，用于deploy到gitee pages上</li>
+<li>search相关插件，方便对站内内容进行搜索</li>
+<li>asset-imager相关插件，方便插图附件之类的</li>
+</ol>
 
-        <h3 id="将内容部署到github的page上">
-          <a href="#将内容部署到github的page上" class="heading-link"><i class="fas fa-link"></i></a>将内容部署到github的page上</h3>
-      <p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/one-command-deployment">https://hexo.io/zh-cn/docs/one-command-deployment</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>建议使用git一键部署，然后要在本地已经存储git的用户名和密码，你只要git pull下来一个github的自己的仓库，然后git push一下即可。然后git config set一下user.name和user.email。如果这些基本信息没有保存，就会在depoly的时候报错，说https不支持。</p>
-<p>然后要设置<code>_config.yaml</code>文件，url修改为github page的地址，我的是</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://sheldonxxd.github.io/">https://sheldonxxd.github.io/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220140719776.png" alt="image-20201220140719776"></p>
-<p>再一个就是depoly的设置：</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220140745771.png" alt="image-20201220140745771"></p>
-<p>配置好了之后，运行命令<code>hexo clean &amp;&amp; hexo depoly</code>即可把内容部署到github pages上面去。最后效果如下：</p>
-<p><img src="/2020/12/20/setupHexoWebsite/image-20201220140908435.png" alt="image-20201220140908435"></p>
-<p>由于是境外网站，所以内容加载速度会慢一些，后面注意压缩照片大小。</p>
-<p>使用hexo建站到github page的完整教程推荐如下：</p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/78467553">https://zhuanlan.zhihu.com/p/78467553</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000017986794">https://segmentfault.com/a/1190000017986794</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
-<p>然后我把<code>_posts</code>目录使用坚果云同步。</p>
-<blockquote>
-<p>本来人家最多一个小时搞定的事情，我搞了大半天，效率虽低，但乐在其中，也还好！</p>
-</blockquote>
+        <h3 id="常用命令">
+          <a href="#常用命令" class="heading-link"><i class="fas fa-link"></i></a>常用命令</h3>
+      <p>需要进入到hexo网站的本地根目录下执行命令，以windows系统为例：</p>
+<ol>
+<li><code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code>: 清除 public目录下所有内容，然后根据新的配置文件重新生成静态网页，并且启动本地服务器</li>
+<li><code>hexo clean &amp;&amp; hexo d</code>：发布到gitee pages上。</li>
+</ol>
 
-        <h3 id="如果弄到gitee上的二级目录blog上">
-          <a href="#如果弄到gitee上的二级目录blog上" class="heading-link"><i class="fas fa-link"></i></a>如果弄到gitee上的二级目录blog上</h3>
-      <p><img src="/2020/12/20/setupHexoWebsite/image-20201221093551678.png" alt="image-20201221093551678"></p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="http://sheldonxxd.gitee.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/">http://sheldonxxd.gitee.io/2020/12/20/setupHexoWebsite/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="http://sheldonxxd.gitee.io/tags/hexo/">hexo</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/12/20/test/"><span class="paginator-prev__text">test</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%AE%B6%E6%90%AD%E5%BB%BA%E5%B1%80%E5%9F%9F%E7%BD%91Hexo%E7%BD%91%E7%AB%99"><span class="toc-number">1.</span> <span class="toc-text">
-          在家搭建局域网Hexo网站</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2hexo%E4%B8%BB%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">
-          部署hexo主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3hexo%E5%92%8Ctypora%E6%90%AD%E9%85%8D%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">3.</span> <span class="toc-text">
-          解决hexo和typora搭配的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8hexo%E4%B8%8A%E5%8F%91%E5%B8%83%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0%E5%81%9A%E6%B5%8B%E8%AF%95"><span class="toc-number">4.</span> <span class="toc-text">
-          在hexo上发布第一篇文章做测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEhexo%E4%B8%BB%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">
-          配置hexo主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E5%86%85%E5%AE%B9%E9%83%A8%E7%BD%B2%E5%88%B0github%E7%9A%84page%E4%B8%8A"><span class="toc-number">6.</span> <span class="toc-text">
-          将内容部署到github的page上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E6%9E%9C%E5%BC%84%E5%88%B0gitee%E4%B8%8A%E7%9A%84%E4%BA%8C%E7%BA%A7%E7%9B%AE%E5%BD%95blog%E4%B8%8A"><span class="toc-number">7.</span> <span class="toc-text">
-          如果弄到gitee上的二级目录blog上</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://portrait.gitee.com/uploads/avatars/user/756/2270807_sheldonxxd_1578970471.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script></body></html>
+        <h3 id="注意事项">
+          <a href="#注意事项" class="heading-link"><i class="fas fa-link"></i></a>注意事项</h3>
+      <ol>
+<li>尽量使用<code>hexo new</code>命令生成 pages或者新的markdown文件，然后到<code>_posts</code>目录下对markdown文件进行编辑修改（使用typora）。</li>
+<li>markdown文件命名只能为英文或者数字，而标题可以在markdown文件里边的<strong>Front Matter YAML</strong>中进行设定。</li>
+<li>gitee仓库容量有限，长期使用个人博客，注意不要插入太多太大的图片。</li>
+</ol>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/">https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/hexo/">hexo</a></span></div><nav class="post-paginator paginator"></nav></footer></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%95%99%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">
+          参考教程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Stun%E4%B8%BB%E9%A2%98"><span class="toc-number">2.</span> <span class="toc-text">
+          使用Stun主题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E8%A6%81%E5%AE%89%E8%A3%85%E7%9A%84%E6%8F%92%E4%BB%B6%E5%88%97%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text">
+          需要安装的插件列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">4.</span> <span class="toc-text">
+          常用命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">5.</span> <span class="toc-text">
+          注意事项</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://portrait.gitee.com/uploads/avatars/user/756/2270807_sheldonxxd_1578970471.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">1</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', 'Please enter characters');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>
