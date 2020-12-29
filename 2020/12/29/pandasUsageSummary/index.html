@@ -7,7 +7,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201229201642898.png">
 <meta property="article:published_time" content="2020-12-29T11:17:44.000Z">
-<meta property="article:modified_time" content="2020-12-29T13:07:59.222Z">
+<meta property="article:modified_time" content="2020-12-29T13:11:43.603Z">
 <meta property="article:author" content="Xiaodong Xie">
 <meta property="article:tag" content="python">
 <meta property="article:tag" content="pandas">
@@ -65,6 +65,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></he
 <figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.random.randint(<span class="number">10</span>, size=(<span class="number">5</span>,<span class="number">3</span>))  <span class="comment"># 产生一个3x5的随机数矩阵</span></span><br><span class="line">b = pd.DataFrame(a, columns=<span class="built_in">list</span>(<span class="string">&#x27;abc&#x27;</span>))  </span><br><span class="line"><span class="comment"># 数据有5列，必须给column名，</span></span><br><span class="line"><span class="comment"># index名也可以指定，若无则会默认从0开始</span></span><br></pre></td></tr></table></div></figure>
 <p>以上就是从numpy二维数组直接转成数据帧的操作，就是要注意columns的命名。效果如下：</p>
 <img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201229201642898.png" alt="image-20201229201642898">
+<p>另外也有一些更傻瓜的方法：</p>
 <figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = pd.DataFrame()   <span class="comment"># 可以先创建一个空的数据帧</span></span><br><span class="line">a[<span class="string">&#x27;a&#x27;</span>] = [x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line">a[<span class="string">&#x27;b&#x27;</span>] = np.random.randint(<span class="number">10</span>, size=(<span class="number">3</span>,))</span><br></pre></td></tr></table></div></figure>
 <p>先创建一个空的数据帧对象，然后赋值也是可以的，但是要注意每一个column的数据长度要一致。这个操作有点像字典。没错，你也可以直接把字典转化为数据帧：</p>
 <figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;<span class="string">&#x27;a&#x27;</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="string">&#x27;b&#x27;</span>:[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]&#125;</span><br><span class="line">b = pd.DataFrame(a)</span><br></pre></td></tr></table></div></figure>
