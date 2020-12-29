@@ -1,0 +1,438 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="pandas在我日常数据分析中使用模块非常高，所以稍微总结一下基本的用法。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pandas模块常用功能备忘录">
+<meta property="og:url" content="https://sheldonxxd.github.io/2020/12/29/pandasUsageSummary/index.html">
+<meta property="og:site_name" content="Sea">
+<meta property="og:description" content="pandas在我日常数据分析中使用模块非常高，所以稍微总结一下基本的用法。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201229201642898.png">
+<meta property="article:published_time" content="2020-12-29T11:17:44.000Z">
+<meta property="article:modified_time" content="2020-12-29T13:06:07.260Z">
+<meta property="article:author" content="Xiaodong Xie">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="pandas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201229201642898.png"><title>pandas模块常用功能备忘录 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2020/12/29/pandasUsageSummary/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="https://sheldonxxd.github.io/"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">pandas模块常用功能备忘录</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2020-12-29</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2020-12-29</span></span></div></header><div class="post-body"><p>使用python进行数据分析，离不开<code>numpy</code>，<code>pandas</code>，<code>matplotlib</code>三个包。为了作图好看，我还常用<code>seaborn</code>。不过<code>numpy</code>使用起来还是没有pandas那么爽，所以我还是用pandas和seaborn最多。所以趁着还有一点写博客的热情，先整理一下pandas的常用功能。</p>
+<p>当然了， 介绍最详细的还是官网文档：</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://pandas.pydata.org/docs/">https://pandas.pydata.org/docs/</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h3 id="读取数据">
+          <a href="#读取数据" class="heading-link"><i class="fas fa-link"></i></a>读取数据</h3>
+      
+<p>pandas可以读取各类数据文件，比如<code>csv</code>、<code>xlsx</code>、<code>hdf5</code>等。而读取的命令一般输入<code>pd.read</code>代码自动补全提示就会出来很多。我这里也不多说，想查看，可以输入一下命令：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">for</span> func <span class="keyword">in</span> <span class="built_in">dir</span>(pd):</span><br><span class="line">	<span class="keyword">if</span> func.startswith(<span class="string">&#x27;read&#x27;</span>):</span><br><span class="line">		print(func)</span><br></pre></td></tr></table></div></figure>
+<p>使用方法基本上都是要输入filepath，然后<code>pd.read_hdf</code>还需要输入hdf5的dataset的key名。我在处理picasso产出的中间数据时，还经常用到以下命令：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hdf2dataframe</span>(<span class="params">filepath</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    只适用于picasso分析过程中生成的hdf5文件数据结构</span></span><br><span class="line"><span class="string">    输出一个字典，包含了不同的dataframe</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    data = &#123;&#125;</span><br><span class="line">    dataset = h5py.File(filepath, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> dataset.keys():</span><br><span class="line">        df = pd.DataFrame(dataset[key][()],dtype=<span class="string">&quot;float64&quot;</span>)  <span class="comment"># 注意数据精度</span></span><br><span class="line">        data[key] = df</span><br><span class="line">    <span class="keyword">return</span> data</span><br></pre></td></tr></table></div></figure>
+<p>这个自定义函数可以把hdf5数据中不同的dataset转化为pandas的DataFrame，并保存到字典中。但事实上当你知道dataset的key名很固定，基本都是<code>locs</code>的时候，只需要下面一行命令就可以了：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_hdf(<span class="string">&#x27;cluster_filtered.hdf5&#x27;</span>,<span class="string">&#x27;locs&#x27;</span>)</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="保存数据">
+          <a href="#保存数据" class="heading-link"><i class="fas fa-link"></i></a>保存数据</h3>
+      
+<p>对于<code>pd.DataFrame</code>对象，可以把数据表保存到各种格式的文件中。下面简单举几个例子：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 假设data是一个dataFrame</span></span><br><span class="line">data.to_csv(filepath, index=<span class="literal">None</span>)  <span class="comment"># 保存为csv文件</span></span><br><span class="line">data.to_excel(filepath, index=<span class="literal">None</span>)  <span class="comment"># 保存为xlsx文件</span></span><br><span class="line">data.to_pickle(filepath)  <span class="comment"># 保存为pkl文件</span></span><br><span class="line">data.to_hdf(filepath, <span class="string">&#x27;locs&#x27;</span>)  <span class="comment"># 保存为hdf5文件</span></span><br></pre></td></tr></table></div></figure>
+<p>其中csv和xlsx文件都可以使用excel打开，我经常使用，但为了避免多余的index列，我通常会指定<code>index=None</code>。处理的中间数据若需要保存，使用pkl文件是最方便的，没有其他参数需要声明。保存为hdf5文件跟打开的时候类似，还要写key名。</p>
+
+        <h3 id="pddataframe对象">
+          <a href="#pddataframe对象" class="heading-link"><i class="fas fa-link"></i></a>pd.DataFrame对象</h3>
+      
+<p>数据帧是pandas最重要的概念，也是最常用的一种数据结构。简单来说，就跟你在excel中看到的表格一样的。从形状上讲，就是一个二维矩形。</p>
+<p>使用<code>pd.read_??</code>方法读取数据文件，返回的基本上都是数据帧，然后你就可以进行各种愉快的操作。当然你也可以把程序运行中其他类型的数据转化为一个DataFrame，下面介绍几种方式：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">a = np.random.randint(<span class="number">10</span>, size=(<span class="number">5</span>,<span class="number">3</span>))  <span class="comment"># 产生一个3x5的随机数矩阵</span></span><br><span class="line">b = pd.DataFrame(a, columns=<span class="built_in">list</span>(<span class="string">&#x27;abc&#x27;</span>))  </span><br><span class="line"><span class="comment"># 数据有5列，必须给column名，</span></span><br><span class="line"><span class="comment"># index名也可以指定，若无则会默认从0开始</span></span><br></pre></td></tr></table></div></figure>
+<p>以上就是从numpy二维数组直接转成数据帧的操作，就是要注意columns的命名。效果如下：</p>
+<img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201229201642898.png" alt="image-20201229201642898">
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = pd.DataFrame()   <span class="comment"># 可以先创建一个空的数据帧</span></span><br><span class="line">a[<span class="string">&#x27;a&#x27;</span>] = [x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)]</span><br><span class="line">a[<span class="string">&#x27;b&#x27;</span>] = np.random.randint(<span class="number">10</span>, size=(<span class="number">3</span>,))</span><br></pre></td></tr></table></div></figure>
+<p>先创建一个空的数据帧对象，然后赋值也是可以的，但是要注意每一个column的数据长度要一致。这个操作有点像字典。没错，你也可以直接把字典转化为数据帧：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = &#123;<span class="string">&#x27;a&#x27;</span>:[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], <span class="string">&#x27;b&#x27;</span>:[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]&#125;</span><br><span class="line">b = pd.DataFrame(a)</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="数据帧的取值">
+          <a href="#数据帧的取值" class="heading-link"><i class="fas fa-link"></i></a>数据帧的取值</h3>
+      
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = np.random.randint(<span class="number">10</span>, size=(<span class="number">3</span>,<span class="number">5</span>))  <span class="comment"># 产生一个5x3的随机数矩阵</span></span><br><span class="line">b = pd.DataFrame(a, columns=<span class="built_in">list</span>(<span class="string">&#x27;abcde&#x27;</span>))  <span class="comment"># 数据有三列，给column名</span></span><br><span class="line">b.loc[<span class="number">0</span>,<span class="string">&#x27;c&#x27;</span>]  <span class="comment"># 注意是方括号，第一个是index name， 第二个是column名，返回单个值</span></span><br><span class="line">b.iloc[<span class="number">0</span>] <span class="comment"># 注意方括号，这里只能输入index名，返回一行数据（pd.Series）</span></span><br></pre></td></tr></table></div></figure>
+<p>如上所示，数据帧就是一个矩阵，取值给索引就好，不过在我的实践过程中，很少直接取某个特定位置的数值。遍历倒是常用，不过需要注意的是，为了加快速度，建议使用如下的遍历方式：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> idx,row <span class="keyword">in</span> df.iterrows():</span><br><span class="line">    <span class="comment"># row是数据帧的某一行</span></span><br><span class="line">    doSomeThingWith(row)</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="数据帧分组">
+          <a href="#数据帧分组" class="heading-link"><i class="fas fa-link"></i></a>数据帧分组</h3>
+      
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gp =data.groupby(by=[<span class="string">&#x27;column_name_1&#x27;</span>, <span class="string">&#x27;column_name_2&#x27;</span>])</span><br></pre></td></tr></table></div></figure>
+<p>一般分组完了，还可以遍历分组，做一些操作：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> key, df <span class="keyword">in</span> gp:</span><br><span class="line">    <span class="comment"># key 是分组数据对应 column_name_1&#x27;, &#x27;column_name_2&#x27; 这两列的值</span></span><br><span class="line">    <span class="comment"># df 是分组的子数据帧</span></span><br><span class="line">    doSomeThingWith(df)</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="数据筛选">
+          <a href="#数据筛选" class="heading-link"><i class="fas fa-link"></i></a>数据筛选</h3>
+      
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data2 = data.<span class="built_in">filter</span>(items=[<span class="string">&#x27;column_1&#x27;</span>, <span class="string">&#x27;column_2&#x27;</span>])</span><br><span class="line"><span class="comment"># 类似的还有一个drop方法</span></span><br></pre></td></tr></table></div></figure>
+<p>上述代码可以从data原数据帧中取出两列值。</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">label = [<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">region_new = region[region[<span class="string">&#x27;Cluster&#x27;</span>].isin(labels)]  </span><br></pre></td></tr></table></div></figure>
+<p>上述代码可以按<code>Cluster</code>这一列的值进行筛选，如果值存在于label列表中，则被提取出来。</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df = localization[(localization[<span class="string">&#x27;x&#x27;</span>]&gt;(x-radii))&amp;\</span><br><span class="line">                 (localization[<span class="string">&#x27;x&#x27;</span>]&lt;(x+radii))&amp;\</span><br><span class="line">                 (localization[<span class="string">&#x27;y&#x27;</span>]&gt;(y-radii))&amp;\</span><br><span class="line">                 (localization[<span class="string">&#x27;y&#x27;</span>]&lt;(y+radii))]</span><br></pre></td></tr></table></div></figure>
+<p>上述代码根据数据帧中的数值指定范围进行筛选，注意方括号，然后多个判断条件的布尔运算要用小括号。</p>
+
+        <h3 id="数据排序">
+          <a href="#数据排序" class="heading-link"><i class="fas fa-link"></i></a>数据排序</h3>
+      
+<p><code>data.sort_values(by=??)</code>，偶尔会用。</p>
+
+        <h3 id="数据翻转">
+          <a href="#数据翻转" class="heading-link"><i class="fas fa-link"></i></a>数据翻转</h3>
+      
+<p><code>data.T</code></p>
+<p>把row和column翻转一下，偶尔会用。</p>
+
+        <h3 id="数据合并">
+          <a href="#数据合并" class="heading-link"><i class="fas fa-link"></i></a>数据合并</h3>
+      
+<p><code>pd.concat([df1, df2])</code></p>
+<p>把一些符合条件的DataFrame合并，注意前提是它们具有相同的column，然后可以放到一个列表里面。</p>
+<p>下面还提供一个例子，怎么把series叠加做成数据帧。</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = pd.Series([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], index=<span class="built_in">list</span>(<span class="string">&#x27;abc&#x27;</span>))  <span class="comment"># 序列</span></span><br><span class="line">b = pd.Series([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>], index=<span class="built_in">list</span>(<span class="string">&#x27;abc&#x27;</span>)) </span><br><span class="line">c = pd.concat([a,b]) <span class="comment"># 纵向叠加series</span></span><br><span class="line">d = pd.concat([a,b], axis=<span class="number">1</span>) <span class="comment"># 横向叠加</span></span><br><span class="line">e = d.T <span class="comment"># 翻转</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="数据融化">
+          <a href="#数据融化" class="heading-link"><i class="fas fa-link"></i></a>数据融化</h3>
+      
+<p><code>pd.melt</code></p>
+<p>可以把新建一个column，把其中某些column转成新的column的value，也非常实用，在seaborn作图的时候，用到过一些。</p>
+
+        <h3 id="随机采样">
+          <a href="#随机采样" class="heading-link"><i class="fas fa-link"></i></a>随机采样</h3>
+      
+<p><code>data.sample([n, frac, ...])</code></p>
+<p>可以指定随机返回的数量，也可以指定比例。加入data的长度是1000，n&lt;1000, frac在0-1之间取小数。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2020/12/29/pandasUsageSummary/">https://sheldonxxd.github.io/2020/12/29/pandasUsageSummary/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/python/">python</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/pandas/">pandas</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2020/12/29/oligoCalculator/"><span class="paginator-prev__text">基于python的DNA定量浓度计算器</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">
+          读取数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E6%95%B0%E6%8D%AE"><span class="toc-text">
+          保存数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#pddataframe%E5%AF%B9%E8%B1%A1"><span class="toc-text">
+          pd.DataFrame对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B8%A7%E7%9A%84%E5%8F%96%E5%80%BC"><span class="toc-text">
+          数据帧的取值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%B8%A7%E5%88%86%E7%BB%84"><span class="toc-text">
+          数据帧分组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%AD%9B%E9%80%89"><span class="toc-text">
+          数据筛选</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%8E%92%E5%BA%8F"><span class="toc-text">
+          数据排序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BF%BB%E8%BD%AC"><span class="toc-text">
+          数据翻转</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%90%88%E5%B9%B6"><span class="toc-text">
+          数据合并</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%9E%8D%E5%8C%96"><span class="toc-text">
+          数据融化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9A%8F%E6%9C%BA%E9%87%87%E6%A0%B7"><span class="toc-text">
+          随机采样</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://portrait.gitee.com/uploads/avatars/user/756/2270807_sheldonxxd_1578970471.jpg" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">9</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">2</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">8</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2020</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', 'Please enter characters');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: '0gcYbA1TK5HEHNGtnT0Nm4Bz-9Nh9j0Va',
+    appKey: 'k7pXknc0TbFWRs8E591EH6jE',
+    notify: true,
+    verify: true,
+    placeholder: 'sea-comments',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: false,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>
