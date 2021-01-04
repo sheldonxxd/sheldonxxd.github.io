@@ -5,20 +5,20 @@
 <meta property="og:site_name" content="Sea">
 <meta property="og:description" content="在处理数据的过程中，可以把一个分布求积分，就是累积分布函数，然后通过一些指数拟合的方式，可以得到一个均值的参数。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://sheldonxxd.github.io/2021/01/04/cdf/temp.svg">
-<meta property="og:image" content="https://sheldonxxd.github.io/2021/01/04/cdf/image-20210104191011726.png">
-<meta property="og:image" content="https://sheldonxxd.github.io/2021/01/04/cdf/temp2.svg">
-<meta property="og:image" content="https://sheldonxxd.github.io/2021/01/04/cdf/image-20210104192236878.png">
-<meta property="og:image" content="https://sheldonxxd.github.io/2021/01/04/cdf/temp3.svg">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/temp.svg">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210104191011726.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/temp2.svg">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210104192236878.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/temp3.svg">
 <meta property="article:published_time" content="2021-01-04T09:45:23.000Z">
-<meta property="article:modified_time" content="2021-01-04T11:34:58.840Z">
+<meta property="article:modified_time" content="2021-01-04T11:37:20.097Z">
 <meta property="article:author" content="Xiaodong Xie">
 <meta property="article:tag" content="curveFit">
 <meta property="article:tag" content="data">
 <meta property="article:tag" content="cumulative">
 <meta property="article:tag" content="distribution">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://sheldonxxd.github.io/2021/01/04/cdf/temp.svg"><title>累积分布函数和S型曲线拟合 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/01/04/cdf/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/temp.svg"><title>累积分布函数和S型曲线拟合 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/01/04/cdf/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -56,30 +56,33 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></he
 <p>先制作一个数据集，均值设置为10，变异度为5。</p>
 <figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mu = <span class="number">10</span></span><br><span class="line">sigma = <span class="number">5</span></span><br><span class="line">X = mu + sigma*np.random.randn(<span class="number">1000</span>)</span><br></pre></td></tr></table></div></figure>
 <p>简单作图可以看到如下的数值分布：</p>
-<p><img src="/2021/01/04/cdf/temp.svg" alt="temp"></p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/temp.svg" alt="temp"></p>
 <p>如果就X数据集直接计算均值，发现与10还是有一些差距：</p>
-<p><img src="/2021/01/04/cdf/image-20210104191011726.png" alt="image-20210104191011726"></p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210104191011726.png" alt="image-20210104191011726"></p>
 
         <h3 id="获取分布计数">
           <a href="#获取分布计数" class="heading-link"><i class="fas fa-link"></i></a>获取分布计数</h3>
       
 <p>主要使用<code>collections.Counter</code>函数：</p>
 <figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a = Counter(X)</span><br><span class="line">b = <span class="built_in">dict</span>(a)</span><br><span class="line">X2 = []</span><br><span class="line"><span class="keyword">for</span> key <span class="keyword">in</span> b:</span><br><span class="line">    X2.append([key, b[key]])</span><br><span class="line">X2 = pd.DataFrame(X2, columns=[<span class="string">&#x27;value&#x27;</span>, <span class="string">&#x27;count&#x27;</span>])</span><br><span class="line">X3 = X2.sort_values(by=<span class="string">&#x27;value&#x27;</span>)</span><br><span class="line">X3[<span class="string">&#x27;cum_count&#x27;</span>] = X3[<span class="string">&#x27;count&#x27;</span>].cumsum()  <span class="comment"># 计算累积计数值</span></span><br><span class="line">sns.lineplot(x=<span class="string">&#x27;value&#x27;</span>, y=<span class="string">&#x27;cum_count&#x27;</span>, data=X3)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></div></figure>
-<p><img src="/2021/01/04/cdf/temp2.svg" alt="temp2"></p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/temp2.svg" alt="temp2"></p>
 
         <h3 id="选取模型进行曲线拟合">
           <a href="#选取模型进行曲线拟合" class="heading-link"><i class="fas fa-link"></i></a>选取模型进行曲线拟合</h3>
       
 <p>这里主要利用<code>scipy.optimize.curve_fit</code>来实现曲线拟合，需要选择合适的函数模型。对于S型曲线，比较常用的是<strong>Logistic</strong>模型，关于S型曲线拟合，可以参考《<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/147467845">轻松构建多种模型拟合S型曲线</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>》。</p>
 <figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span>(<span class="params">x, a, b, c</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    使用Logistic模型来拟合</span></span><br><span class="line"><span class="string">    该模型有3个参数</span></span><br><span class="line"><span class="string">    当x=b/c时，曲线处于拐点，可用于估计正态分布的峰值</span></span><br><span class="line"><span class="string">    https://zhuanlan.zhihu.com/p/147467845</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">return</span> a/(<span class="number">1</span>+np.exp(b-c*x))</span><br><span class="line"></span><br><span class="line">params = curve_fit(func, X3[<span class="string">&#x27;value&#x27;</span>], X3[<span class="string">&#x27;cum_count&#x27;</span>])</span><br><span class="line">popt, pcov = params</span><br><span class="line">print(popt[<span class="number">1</span>]/popt[<span class="number">2</span>])</span><br></pre></td></tr></table></div></figure>
-<p><img src="/2021/01/04/cdf/image-20210104192236878.png" alt="image-20210104192236878"></p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210104192236878.png" alt="image-20210104192236878"></p>
 <p>可以看到拐点对应的value，跟我们最初设置的<code>mu=10</code>非常接近了。</p>
 
         <h3 id="查看拟合效果">
           <a href="#查看拟合效果" class="heading-link"><i class="fas fa-link"></i></a>查看拟合效果</h3>
       
 <figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">X4 = [func(i, popt[<span class="number">0</span>],popt[<span class="number">1</span>],popt[<span class="number">2</span>]) <span class="keyword">for</span> i <span class="keyword">in</span> X3[<span class="string">&#x27;value&#x27;</span>]]</span><br><span class="line">X3[<span class="string">&#x27;fit&#x27;</span>] = X4</span><br><span class="line"></span><br><span class="line">sns.lineplot(x=<span class="string">&#x27;value&#x27;</span>, y=<span class="string">&#x27;cum_count&#x27;</span>, data=X3)</span><br><span class="line">sns.lineplot(x=<span class="string">&#x27;value&#x27;</span>, y=<span class="string">&#x27;fit&#x27;</span>, color=<span class="string">&#x27;r&#x27;</span>, data=X3)</span><br><span class="line">plt.savefig(os.path.join(os.path.expanduser(<span class="string">&#x27;~/Desktop/&#x27;</span>), <span class="string">&#x27;temp.svg&#x27;</span>))</span><br></pre></td></tr></table></div></figure>
-<p><img src="/2021/01/04/cdf/temp3.svg" alt="temp3"></p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/temp3.svg" alt="temp3"></p>
+<blockquote>
+<p>注意一下，后面如果命名临时文件，简易带上时间戳，不然图床会覆盖保存。</p>
+</blockquote>
 
         <h3 id="参考链接">
           <a href="#参考链接" class="heading-link"><i class="fas fa-link"></i></a>参考链接</h3>
