@@ -1,3 +1,4 @@
+https://sheldonxxd.github.io/2021/01/05/GaussianFit-2D/
 https://sheldonxxd.github.io/2021/01/04/cdf/
 https://sheldonxxd.github.io/2020/12/30/getIntensityCurve/
 https://sheldonxxd.github.io/2020/12/30/downloadCloudMusic/
@@ -7,4 +8,3 @@ https://sheldonxxd.github.io/2020/12/26/collectFilesUsingPython/
 https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/
 https://sheldonxxd.github.io/2020/12/29/pandasUsageSummary/
 https://sheldonxxd.github.io/2020/12/29/oligoCalculator/
-https://sheldonxxd.github.io/2020/12/28/basicUVspectrumAnalysis/
