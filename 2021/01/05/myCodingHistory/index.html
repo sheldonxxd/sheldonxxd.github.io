@@ -1,0 +1,378 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="ImageJ虽然支持宏语言编程，但毕竟过于简单，随着要处理的事情越来越复杂，我也就慢慢转向All in python了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我为何从ImageJ转向python">
+<meta property="og:url" content="https://sheldonxxd.github.io/2021/01/05/myCodingHistory/index.html">
+<meta property="og:site_name" content="Sea">
+<meta property="og:description" content="ImageJ虽然支持宏语言编程，但毕竟过于简单，随着要处理的事情越来越复杂，我也就慢慢转向All in python了。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105182125942.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105182112769.png">
+<meta property="article:published_time" content="2021-01-05T09:58:04.000Z">
+<meta property="article:modified_time" content="2021-01-05T10:33:28.352Z">
+<meta property="article:author" content="Xiaodong Xie">
+<meta property="article:tag" content="summary">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105182125942.png"><title>我为何从ImageJ转向python | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/01/05/myCodingHistory/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":false},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="https://sheldonxxd.github.io/"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">我为何从ImageJ转向python</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-05</span></span></div></header><div class="post-body"><p>ImageJ是学术界非常常用的图像处理软件。它插件丰富，功能强大，体积小巧，开源跨平台，我在读博士刚开始的时候，主要就是用它解决一些成像数据分析的问题。可是到后来，需要处理的数据量越来越大，对自动化的需求越来越高，ImageJ的宏语言（Macro Language）已经无法满足需求，我便逐步迈入了python的深坑。下面举一个例子，作为我这种转型的见证。</p>
+
+        <h3 id="需求">
+          <a href="#需求" class="heading-link"><i class="fas fa-link"></i></a>需求</h3>
+      
+<p>有一个视频数据（xyt），每一帧都有一些单分子荧光信号，需要提取它们的位置（xp, yp），然后再提取该位置的强度时间曲线进行分析。</p>
+
+        <h3 id="imagej-macro的代码实现">
+          <a href="#imagej-macro的代码实现" class="heading-link"><i class="fas fa-link"></i></a>ImageJ Macro的代码实现</h3>
+      
+<figure class="highlight javascript"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 2021-1-4</span></span><br><span class="line"><span class="comment"> * # batch find maxima and export the list</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"> h = <span class="number">750</span>;  <span class="comment">// 先自行用Find Maxima调节参数预览一下，选择合适的数值</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">// 把记录文件存放子目录下，</span></span><br><span class="line"> <span class="comment">// 如果子文件夹不存在，创建一个</span></span><br><span class="line"> image= getTitle();</span><br><span class="line"> imageName = split(image, <span class="string">&quot;.&quot;</span>);</span><br><span class="line"> fpath = getDirectory(<span class="string">&quot;image&quot;</span>)+imageName[<span class="number">0</span>]+<span class="string">&quot;_frames/&quot;</span>;</span><br><span class="line"> <span class="keyword">if</span> (!File.exists(fpath))&#123;</span><br><span class="line"> 	File.makeDirectory(fpath);</span><br><span class="line"> &#125;  </span><br><span class="line"> </span><br><span class="line"> N = nSlices;</span><br><span class="line"> setBatchMode(<span class="string">&quot;hide&quot;</span>);  <span class="comment">// 使用batchmode稍微快一点</span></span><br><span class="line"> <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line"> 	<span class="comment">// main(fpath, i);</span></span><br><span class="line"> 	main2(i);</span><br><span class="line"> &#125;</span><br><span class="line"> setBatchMode(<span class="string">&quot;show&quot;</span>);</span><br><span class="line"></span><br><span class="line"> roiManager(<span class="string">&quot;save&quot;</span>, fpath+<span class="string">&quot;RoiSet.zip&quot;</span>);</span><br><span class="line"> <span class="comment">// 把roi管理器中的记录打包保存</span></span><br><span class="line"> <span class="comment">// 后续可以使用python中的read_roi模块进行处理</span></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params">fpath, i</span>)</span>&#123;</span><br><span class="line"> 	<span class="comment">// 对每一帧进行Find Maxima处理，</span></span><br><span class="line"> 	<span class="comment">// 输出List到Results窗口</span></span><br><span class="line"> 	<span class="comment">// 把Results窗口内容保存为csv，命名为frame/id.csv</span></span><br><span class="line"> 	frameID = i+<span class="number">1</span>;</span><br><span class="line"> 	setSlice(frameID);</span><br><span class="line"> 	run(<span class="string">&quot;Find Maxima...&quot;</span>, <span class="string">&quot;prominence=750 output=List&quot;</span>);</span><br><span class="line"> 	saveAs(<span class="string">&quot;results&quot;</span>, fpath+frameID+<span class="string">&quot;.csv&quot;</span>);</span><br><span class="line"><span class="comment">// 	selectWindow(&quot;Results&quot;);</span></span><br><span class="line"><span class="comment">// 	run(&quot;Close&quot;);</span></span><br><span class="line"><span class="comment">//  不用关，每次都会刷新Results窗口</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">main2</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line"> 	<span class="comment">// 对每一帧进行Find Maxima处理，</span></span><br><span class="line"> 	<span class="comment">// 输出List到Results窗口</span></span><br><span class="line"> 	<span class="comment">// 把Results窗口内容保存为csv，命名为frame/id.csv</span></span><br><span class="line"> 	frameID = i+<span class="number">1</span>;</span><br><span class="line"> 	setSlice(frameID);</span><br><span class="line"> 	run(<span class="string">&quot;Find Maxima...&quot;</span>, <span class="string">&quot;prominence=750 output=[Point Selection]&quot;</span>);</span><br><span class="line"> 	roiManager(<span class="string">&quot;Add&quot;</span>);</span><br><span class="line"> 	<span class="comment">// 使用ROI管理器保存数据，减少IO，速度快上好几倍</span></span><br><span class="line"> 	run(<span class="string">&quot;Select None&quot;</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></div></figure>
+<p>以上代码，只是循环调用ImageJ自带的<code>Find_Maxima</code>功能，刚开始我是打算输出到Results窗口，然后保存每一帧的结果到csv文件，结果发现这样太慢了（大概9分钟）。后来决定把结果保存到ROI管理器，能够稍微加速一点（大概4分钟）。但是即便这么大段的代码，也只不过实现了位置信息的收集，还没办法实现强度时间曲线的提取、整理汇总和可视化。而且保存为roi，后续还得<code>pip install read_roi</code>，利用python脚本进行后续的处理。</p>
+
+        <h3 id="python的代码实现">
+          <a href="#python的代码实现" class="heading-link"><i class="fas fa-link"></i></a>python的代码实现</h3>
+      
+<p>主要依赖<code>skimage.io</code>实现视频数据的读取，<code>skimage.mophorlogy.h_maxima</code>实现<strong>Find_Maxima</strong>的功能。为了学习写类，我把几个大步骤都写成了类：</p>
+<ol>
+<li>首先是读取数据，smFRET</li>
+<li>然后是Find_Maxima，finder</li>
+<li>接着就是要把找到的maxima对应位置的强度时间曲线提取出来，所以有一个extractor</li>
+</ol>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> skimage <span class="keyword">import</span> io</span><br><span class="line"><span class="keyword">from</span> skimage.morphology <span class="keyword">import</span> h_maxima</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">smFRET</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, filepath</span>):</span></span><br><span class="line">        self.filepath = filepath</span><br><span class="line">        self.movie = io.imread(filepath, plugin=<span class="string">&#x27;pil&#x27;</span>)</span><br><span class="line">        self.frames, self.width, self.height = self.movie.shape</span><br><span class="line"></span><br><span class="line">        </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">finder</span>(<span class="params">smFRET</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, filepath</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(finder, self).__init__(filepath)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self, h</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        h这个参数可以使用ImageJ预览movie，用`Find_Maxima`命令获取</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        self.maxima = []</span><br><span class="line">        <span class="comment"># movie整体太大，一次性处理会出内存问题，所以按帧扫描</span></span><br><span class="line">        <span class="keyword">for</span> frame <span class="keyword">in</span> self.movie:</span><br><span class="line">            self.maxima.append(h_maxima(frame, h))</span><br><span class="line">        self.maxima = np.array(self.maxima)</span><br><span class="line">        self.mapping = self.projection()</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">projection</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        做一个z轴的projection</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> self.maxima.<span class="built_in">sum</span>(axis=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">extractor</span>(<span class="params">finder</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, filepath, h</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        filepath: tif视频文件路径</span></span><br><span class="line"><span class="string">        h: 这个参数可以使用ImageJ预览movie，用`Find_Maxima`命令获取</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="built_in">super</span>(extractor, self).__init__(filepath)</span><br><span class="line">        self.run(h)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">preview</span>(<span class="params">self, vmax=<span class="number">100</span>, vmin=<span class="number">4</span></span>):</span></span><br><span class="line">        plt.imshow(self.mapping, vmax=vmax, vmin=vmin, cmap=<span class="string">&quot;jet&quot;</span>)</span><br><span class="line">        plt.colorbar()</span><br><span class="line">        plt.show()</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">threshold</span>(<span class="params">self, vmax, vmin</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        根据find.mapping的预览结果设定vmax和vmin作为threshold</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="comment"># 要转化为float才能做broadcast计算</span></span><br><span class="line">        mm = self.mapping.astype(<span class="string">&quot;float32&quot;</span>)  </span><br><span class="line">        rows, cols = np.where((mm-vmin)*(mm-vmax)&lt;=<span class="number">0</span>)</span><br><span class="line">        self.locs = np.vstack([rows, cols]).T</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">choose</span>(<span class="params">self, pid, show=<span class="literal">False</span></span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        pid: 单分子信号的索引，从0开始，不大于self.locs的长度</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        row, col = self.locs[pid]</span><br><span class="line">        line = self.movie[:, row, col]</span><br><span class="line">        labels = self.maxima[:, row, col]*line.ptp()/<span class="number">10</span>+line.mean()</span><br><span class="line">        <span class="comment"># 把maxima的label也提取出来，看看啥情况</span></span><br><span class="line">        <span class="keyword">if</span> show:</span><br><span class="line">            plt.plot(line)</span><br><span class="line">            plt.plot(labels, c=<span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">            plt.show()</span><br><span class="line">        <span class="keyword">return</span> line, self.maxima[:, row, col]</span><br></pre></td></tr></table></div></figure>
+<p>严格来说，我这代码写得并不漂亮，因为我平时很多时候都是写零散的面向过程的代码，面向对象并不是我熟悉的领域。不过我喜欢一个对象可以保留很多数据和方法，还能够继承的特点。所以在一些heavy的场合，我也会使用。而使用起来也非常简单：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ext = extractor(filepath, h=<span class="number">1000</span>)</span><br><span class="line">ext.preview(vmax=<span class="number">100</span>, vmin=<span class="number">4</span>)</span><br><span class="line"><span class="comment"># 可以先看到定位的结果，找到合适的vmax和vmin作为后续的threshold</span></span><br></pre></td></tr></table></div></figure>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105182125942.png" alt="image-20210105182125942"></p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ext.threshold(vmax=<span class="number">100</span>, vmin=<span class="number">4</span>)</span><br><span class="line">line,labels = ext.choose(<span class="number">30</span>, show=<span class="literal">True</span>)</span><br></pre></td></tr></table></div></figure>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105182112769.png" alt="image-20210105182112769"></p>
+<p>使用python代码，只需要1分40秒就可以完成任务（事实上文件读取和finder这两部分采取多进程多线程甚至numba，还能大幅提速），而且所有抽提出来的坐标信息都在ext对象中保存着，想看哪个，就可以使用choose的方法取值并查看强度时间曲线和对应的label。</p>
+
+        <h3 id="小结">
+          <a href="#小结" class="heading-link"><i class="fas fa-link"></i></a>小结</h3>
+      
+<p>ImageJ的Macro Language是我第一个成功应用并解决了科研上实际问题的编程语言，让我尝到了使用编程来高效解决一些laborious的图像数据分析工作的甜头，同时也让我树立了一些自信心。但是它毕竟过于简单，难以胜任更多更复杂的任务。虽然我现在已经很少使用ImageJ了，但是对它以及背后成千上万的开发者，我报以崇高的敬意。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2021/01/05/myCodingHistory/">https://sheldonxxd.github.io/2021/01/05/myCodingHistory/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/summary/">summary</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/01/05/GaussianFit-2D/"><span class="paginator-prev__text">单颗粒粒子光斑的高斯拟合</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9C%80%E6%B1%82"><span class="toc-text">
+          需求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#imagej-macro%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">
+          ImageJ Macro的代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#python%E7%9A%84%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">
+          python的代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">
+          小结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/github-logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">12</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">4</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">18</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', 'Please enter characters');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: '0gcYbA1TK5HEHNGtnT0Nm4Bz-9Nh9j0Va',
+    appKey: 'k7pXknc0TbFWRs8E591EH6jE',
+    notify: true,
+    verify: true,
+    placeholder: 'sea-comments',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: false,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>

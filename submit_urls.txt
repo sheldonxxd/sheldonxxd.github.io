@@ -1,3 +1,4 @@
+https://sheldonxxd.github.io/2021/01/05/myCodingHistory/
 https://sheldonxxd.github.io/2021/01/05/GaussianFit-2D/
 https://sheldonxxd.github.io/2021/01/04/cdf/
 https://sheldonxxd.github.io/2020/12/30/getIntensityCurve/
@@ -7,4 +8,3 @@ https://sheldonxxd.github.io/2020/12/24/resizeImages/
 https://sheldonxxd.github.io/2020/12/26/collectFilesUsingPython/
 https://sheldonxxd.github.io/2020/12/20/setupHexoWebsite/
 https://sheldonxxd.github.io/2020/12/29/pandasUsageSummary/
-https://sheldonxxd.github.io/2020/12/29/oligoCalculator/
