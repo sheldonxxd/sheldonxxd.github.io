@@ -1,24 +1,27 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="plt.hist命令简直不能再好用了。">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="这是一段文章摘要，是通过 Front-Matter 的 excerpt 属性设置的。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="获取直方分布是如此的简单">
-<meta property="og:url" content="https://sheldonxxd.github.io/2021/01/05/easy-histogram/index.html">
+<meta property="og:title" content="安装和设置HP网络打印机">
+<meta property="og:url" content="https://sheldonxxd.github.io/2021/01/06/installPrinter/index.html">
 <meta property="og:site_name" content="Sea">
-<meta property="og:description" content="plt.hist命令简直不能再好用了。">
+<meta property="og:description" content="这是一段文章摘要，是通过 Front-Matter 的 excerpt 属性设置的。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105192718893.png">
-<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105192912328.png">
-<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105193018138.png">
-<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105193503927.png">
-<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105193937326.png">
-<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105194511640.png">
-<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105194913469.png">
-<meta property="article:published_time" content="2021-01-05T11:23:43.000Z">
-<meta property="article:modified_time" content="2021-01-05T11:55:49.360Z">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106100103687.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106083943008.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084204281.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084251923.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084320075.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084722170.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106085902856.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106090109404.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106090248311.png">
+<meta property="og:image" content="https://sheldonxxd.github.io/2021/01/06/installPrinter/image-20210106100712376.png">
+<meta property="article:published_time" content="2021-01-06T01:54:40.000Z">
+<meta property="article:modified_time" content="2021-01-06T02:13:15.701Z">
 <meta property="article:author" content="Xiaodong Xie">
-<meta property="article:tag" content="histogram">
-<meta property="article:tag" content="matplotlib">
+<meta property="article:tag" content="打印机">
+<meta property="article:tag" content="需求">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105192718893.png"><title>获取直方分布是如此的简单 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/01/05/easy-histogram/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106100103687.png"><title>安装和设置HP网络打印机 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/01/06/installPrinter/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -42,52 +45,54 @@ var CONFIG = {
   sourcePath: {"js":"js","css":"css","images":"images"},
 };
 
-window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="https://sheldonxxd.github.io/"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">获取直方分布是如此的简单</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-05</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-05</span></span></div></header><div class="post-body"><p>查看一列数据的直方分布是统计里边最基本的操作了，过去我常常使用seaborn作直方分布图，它会进行自动的核密度估计，但是我当我想拿到一个简单的histogram的数据的时候，常常还需要自己使用<code>collections.Counter</code>先来计数一下。直到今天，我使用<code>plt.hist</code>命令偷懒，发现了一些端倪：</p>
-<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105192718893.png" alt="image-20210105192718893"></p>
-<p>注意，jupyter notebook 中output的内容，除了有figure之外，还有一个tuple，看上去<code>plt.hist</code>命令可以返回直方分布柱状图的作图数据。如果勤快点加上<code>plt.show</code>，就看不到了：</p>
-<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105192912328.png" alt="image-20210105192912328"></p>
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="https://sheldonxxd.github.io/"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">安装和设置HP网络打印机</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-01-06</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-01-06</span></span></div></header><div class="post-body"><p>实验室打印机还是有的，不过平时我主要在电脑上看文献，所以使用的频率非常低。恰巧今天要提交一些纸质材料，不得不打印出来。一问，大家都是抱着自己的笔记本电脑，跟打印机通过usb连接再打印文件的。而我的电脑同时连着两个硬盘，各种程序（处理硬盘中的实验数据）和文件都还打开着。所以<strong>搬电脑</strong>这种事情我可干不来。</p>
+<p>为了方便自己方便大家，我便把打印机连接到了基于自己的路由器架设的无线局域网中（printer无法连单位的企业WiFi）。然后在路由器中还给它分配了固定IP：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106100103687.png" alt="image-20210106100103687"></p>
+<p>接下来就是给自己的电脑安装驱动，并且连接这台网络打印机。为此，我还写了一个教程。</p>
 
-        <h3 id="plthist的返回值就是直方分布统计数据">
-          <a href="#plthist的返回值就是直方分布统计数据" class="heading-link"><i class="fas fa-link"></i></a>plt.hist的返回值就是直方分布统计数据</h3>
+        <h3 id="安装打印机驱动">
+          <a href="#安装打印机驱动" class="heading-link"><i class="fas fa-link"></i></a>安装打印机驱动</h3>
       
-<p>不过我还是用一个变量接收了<code>plt.hist</code>命令的返回，轻而易举就拿到了直方分布的统计数据，后续自己想怎么作图就怎么作图：</p>
-<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105193018138.png" alt="image-20210105193018138"></p>
+<p>建议使用windows系统，macOS或linux需要下载对应的驱动程序。</p>
+<p>先安装版本型号匹配的打印机驱动：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106083943008.png" alt="image-20210106083943008"></p>
+<p>在安装界面中，需要连接到网络打印机，我已经设置好网络，大家务必先连接到<code>_gitlab_</code>这个WiFi，密码是<code>fan123456</code>。**注意此WiFi为局域网，不能访问公网，**但可以访问内部gitlab网站（<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://192.168.0.80">http://192.168.0.80</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>）</p>
+<blockquote>
+<p>夹带了私货。gitlab是我架设在一台ubuntu主机上的东东，我觉得对于实验室内部而言，有这么一个协同和版本控制的工具还蛮好的。</p>
+</blockquote>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084204281.png" alt="image-20210106084204281"></p>
+<p>然后在驱动安装界面输入打印机的IP地址<code>192.168.0.188</code></p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084251923.png" alt="image-20210106084251923"></p>
+<p>马上就能搜索到这台打印机的信息，点击下一步继续安装和配置（需要一点时间）。</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084320075.png" alt="image-20210106084320075"></p>
+<p>最后显示打印机安装成功界面：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106084722170.png" alt="image-20210106084722170"></p>
+<p>直接点击<code>完成</code>，并打印测试页。如果没有成功，请检查您的系统是否自动断开了没有网络连接的<code>_gitlab_</code>的WiFi。</p>
 
-        <h3 id="通过bins和range参数控制直方分布统计">
-          <a href="#通过bins和range参数控制直方分布统计" class="heading-link"><i class="fas fa-link"></i></a>通过bins和range参数控制直方分布统计</h3>
+        <h3 id="设置双面打印">
+          <a href="#设置双面打印" class="heading-link"><i class="fas fa-link"></i></a>设置双面打印</h3>
       
-<p>不过你可能注意到，直方分布的分组边界是凌乱的。这个时候可以通过设置bins和range参数来控制：</p>
-<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105193503927.png" alt="image-20210105193503927"></p>
+<p>具体参考《<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.jb51.net/hardware/other/313421.html">惠普打印机双面打印自动变手动的解决办法</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>》，对打印机的属性进行修改：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106085902856.png" alt="image-20210106085902856"></p>
+<p>然后修改打印机首选项，为了经济环保，默认双面打印：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106090109404.png" alt="image-20210106090109404"></p>
 
-        <h3 id="直接把频次换算成分布概率密度">
-          <a href="#直接把频次换算成分布概率密度" class="heading-link"><i class="fas fa-link"></i></a>直接把频次换算成分布概率密度</h3>
+        <h3 id="word文档打印效果">
+          <a href="#word文档打印效果" class="heading-link"><i class="fas fa-link"></i></a>Word文档打印效果</h3>
       
-<p>通过<code>?plt.hist</code>可以在jupyter notebook中快速查看该函数的文档，立马得知可以通过density这个参数，选择输出分布密度，相当于做了一个归一化，使得不同数量的样本之间具备更好的可比性。</p>
-<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105193937326.png" alt="image-20210105193937326"></p>
-
-        <h3 id="查看累积频率">
-          <a href="#查看累积频率" class="heading-link"><i class="fas fa-link"></i></a>查看累积频率</h3>
-      
-<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105194511640.png" alt="image-20210105194511640"></p>
-<p>只要在参数里边修改cumulative为<code>True</code>，就可以输出一个累积频率分布。这比我这两天类似累活可要轻松多了。</p>
-
-        <h3 id="绘制帕累托图">
-          <a href="#绘制帕累托图" class="heading-link"><i class="fas fa-link"></i></a>绘制帕累托图</h3>
-      
-<p>然后我想把累积频率绘制成折线，下边放分布，结果如下：</p>
-<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210105194913469.png" alt="image-20210105194913469"></p>
-<p>需要注意的是，a是前边<code>plt.hist</code>命令的返回值，索引为1才对应横坐标，而且<code>len(a[1])</code> 比<code>len(a[0])</code> 大 1，因为<code>a[1]</code> 存放的是边界，所以我对这个array进行了切片，而且还移位。</p>
+<p>然后随便打印一个word文档，按<code>Ctrl+P</code>，可以看到打印机默认配置就是双面打印了：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210106090248311.png" alt="image-20210106090248311"></p>
 
         <h3 id="小结">
           <a href="#小结" class="heading-link"><i class="fas fa-link"></i></a>小结</h3>
       
-<p>我再也不用Counter了，再也不用dataframe的<code>.cumsum()</code>了，使用plt.hist不能再方便。感觉像是打通了任督二脉。matplotlib这个库确实是🐂🍺！</p>
-</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2021/01/05/easy-histogram/">https://sheldonxxd.github.io/2021/01/05/easy-histogram/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/histogram/">histogram</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/matplotlib/">matplotlib</a></span></div><nav class="post-paginator paginator"><div class="paginator-prev"><a class="paginator-prev__link" href="/2021/01/06/installPrinter/"><span class="paginator-prev__icon"><i class="fas fa-angle-left"></i></span><span class="paginator-prev__text">安装和设置HP网络打印机</span></a></div><div class="paginator-next"><a class="paginator-next__link" href="/2021/01/05/myCodingHistory/"><span class="paginator-prev__text">我为何从ImageJ转向python</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#plthist%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E5%B0%B1%E6%98%AF%E7%9B%B4%E6%96%B9%E5%88%86%E5%B8%83%E7%BB%9F%E8%AE%A1%E6%95%B0%E6%8D%AE"><span class="toc-text">
-          plt.hist的返回值就是直方分布统计数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87bins%E5%92%8Crange%E5%8F%82%E6%95%B0%E6%8E%A7%E5%88%B6%E7%9B%B4%E6%96%B9%E5%88%86%E5%B8%83%E7%BB%9F%E8%AE%A1"><span class="toc-text">
-          通过bins和range参数控制直方分布统计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%B4%E6%8E%A5%E6%8A%8A%E9%A2%91%E6%AC%A1%E6%8D%A2%E7%AE%97%E6%88%90%E5%88%86%E5%B8%83%E6%A6%82%E7%8E%87%E5%AF%86%E5%BA%A6"><span class="toc-text">
-          直接把频次换算成分布概率密度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%B4%AF%E7%A7%AF%E9%A2%91%E7%8E%87"><span class="toc-text">
-          查看累积频率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%98%E5%88%B6%E5%B8%95%E7%B4%AF%E6%89%98%E5%9B%BE"><span class="toc-text">
-          绘制帕累托图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">
+<p>然后我把教程发布到微信群，让大家打印东西能够方便一点，获得点赞不计其数，那我也感觉蛮开心的。</p>
+<p><img src="/2021/01/06/installPrinter/image-20210106100712376.png" alt="image-20210106100712376"></p>
+<p>安装配置网络打印机这种事情，其实非常简单。但是它能够服务到的人也是最多的。而我写的可能自鸣得意的代码，反倒是无人问津最多我老婆喊666。所以说一定要抓住真正的需求（不管是自己的还是客户的），才能做出创造大量价值的事情，从而获得满足感和幸福感。</p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2021/01/06/installPrinter/">https://sheldonxxd.github.io/2021/01/06/installPrinter/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/%E6%89%93%E5%8D%B0%E6%9C%BA/">打印机</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/%E9%9C%80%E6%B1%82/">需求</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/01/05/easy-histogram/"><span class="paginator-prev__text">获取直方分布是如此的简单</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%89%93%E5%8D%B0%E6%9C%BA%E9%A9%B1%E5%8A%A8"><span class="toc-text">
+          安装打印机驱动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%8F%8C%E9%9D%A2%E6%89%93%E5%8D%B0"><span class="toc-text">
+          设置双面打印</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#word%E6%96%87%E6%A1%A3%E6%89%93%E5%8D%B0%E6%95%88%E6%9E%9C"><span class="toc-text">
+          Word文档打印效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%93"><span class="toc-text">
           小结</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/github-logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">14</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">3</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">22</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
   var isXML = true;
   var search_path = 'search.json';
