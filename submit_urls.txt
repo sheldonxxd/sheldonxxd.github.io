@@ -1,3 +1,4 @@
+https://sheldonxxd.github.io/2021/01/12/simpleFRETanalysis/
 https://sheldonxxd.github.io/2021/01/10/GUIforLog/
 https://sheldonxxd.github.io/2021/01/07/BinarySequenceIntervalCount/
 https://sheldonxxd.github.io/2021/01/06/installPrinter/
@@ -7,4 +8,3 @@ https://sheldonxxd.github.io/2021/01/05/GaussianFit-2D/
 https://sheldonxxd.github.io/2021/01/04/cdf/
 https://sheldonxxd.github.io/2020/12/30/getIntensityCurve/
 https://sheldonxxd.github.io/2020/12/30/downloadCloudMusic/
-https://sheldonxxd.github.io/2020/12/27/mergeAllNotes/
