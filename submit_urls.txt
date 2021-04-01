@@ -1,3 +1,5 @@
+https://sheldonxxd.github.io/2021/04/01/use-gitlab/
+https://sheldonxxd.github.io/2021/04/01/standalone-HTML-image-embedding/
 https://sheldonxxd.github.io/2021/03/31/originLab-peakAnalysis/
 https://sheldonxxd.github.io/2021/01/17/jupyterNotebook-extension/
 https://sheldonxxd.github.io/2021/01/17/createDraft/
@@ -6,5 +8,3 @@ https://sheldonxxd.github.io/2021/01/12/simpleFRETanalysis/
 https://sheldonxxd.github.io/2021/01/10/GUIforLog/
 https://sheldonxxd.github.io/2021/01/07/BinarySequenceIntervalCount/
 https://sheldonxxd.github.io/2021/01/06/installPrinter/
-https://sheldonxxd.github.io/2021/01/05/easy-histogram/
-https://sheldonxxd.github.io/2021/01/05/myCodingHistory/

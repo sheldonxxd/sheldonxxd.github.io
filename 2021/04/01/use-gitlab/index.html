@@ -1,0 +1,462 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="记录了在本地局域网安装gitlab、使用和维护的基本内容。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安装和配置gitlab网站">
+<meta property="og:url" content="https://sheldonxxd.github.io/2021/04/01/use-gitlab/index.html">
+<meta property="og:site_name" content="Sea">
+<meta property="og:description" content="记录了在本地局域网安装gitlab、使用和维护的基本内容。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/%E6%B7%B1%E5%BA%A6%E6%88%AA%E5%9B%BE_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20201203185416.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/%E6%B7%B1%E5%BA%A6%E6%88%AA%E5%9B%BE_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20201203191928.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201203192128308.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201203193159877.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210326142323957.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/52f8c7f53da1ab5708b0c1262b15126a5c2.jpg">
+<meta property="article:published_time" content="2021-04-01T00:30:15.000Z">
+<meta property="article:modified_time" content="2021-04-01T00:41:12.000Z">
+<meta property="article:author" content="Xiaodong Xie">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/%E6%B7%B1%E5%BA%A6%E6%88%AA%E5%9B%BE_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20201203185416.png"><title>安装和配置gitlab网站 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/04/01/use-gitlab/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: {"endText":true},
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="https://sheldonxxd.github.io/"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">安装和配置gitlab网站</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-04-01</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-04-01</span></span></div></header><div class="post-body">
+        <h3 id="gitlab的部署">
+          <a href="#gitlab的部署" class="heading-link"><i class="fas fa-link"></i></a>gitlab的部署</h3>
+      
+<p>gitlab的部署安装其实也非常简单，主要参考下面链接。</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_35844177/article/details/106876923">https://blog.csdn.net/qq_35844177/article/details/106876923</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>关于<code>ufw</code>防火墙设置可以额外参考：</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/139381645">https://zhuanlan.zhihu.com/p/139381645</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>弄好了之后，需要把我以前架设的网站的apache2服务关闭（不然进入设置好的域名就不是gitlab）：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo &#x2F;etc&#x2F;init.d&#x2F;apache2 stop</span><br></pre></td></tr></table></div></figure>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.cnblogs.com/supe/p/8010612.html">https://www.cnblogs.com/supe/p/8010612.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>然后还可以<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.sunzhongwei.com/since-launch-of-ubuntu-2004-ban-apache-boot">禁止apache2开机自启动</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl disable apache2</span><br></pre></td></tr></table></div></figure>
+<p>再设置gitlab开机自启动</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl enable gitlab-runsvdir.service</span><br></pre></td></tr></table></div></figure>
+<p>接下来访问之前设置的域名（<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://10.161.135.46">http://10.161.135.46</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>)就可以登陆gitlab了，第一次登陆要修改密码，而管理员账户名默认就是root。</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/%E6%B7%B1%E5%BA%A6%E6%88%AA%E5%9B%BE_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20201203185416.png" alt></p>
+<p>而其他用户注册之后，必须要管理员approve才能登陆，这一点需要注意下：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/%E6%B7%B1%E5%BA%A6%E6%88%AA%E5%9B%BE_%E9%80%89%E6%8B%A9%E5%8C%BA%E5%9F%9F_20201203191928.png" alt></p>
+<p>新用户登录会让你选择角色，其实如果是研究生或者博士后，就是Developer，老师就是Lead，估计也没啥用。</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201203192128308.png" alt="image-20201203192128308"></p>
+<p>然后我新建了自己第一个仓库，但是它提示我需要设置ssh的公钥，我觉得麻烦，如果需要clone到本地或者同步，可以使用http。</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20201203193159877.png" alt="image-20201203193159877"></p>
+<p>我自己以后肯定是要做PI的，所以这个东西积累起来对我自己后面也是有好处的。我还是要积极推动起来，别因为一些困难就停滞了，因为这个本质上确实是一件好事。只是前期我就需要自己身先士卒打个样，大家有个模板就比较好操作。</p>
+
+        <h3 id="修复gitlab">
+          <a href="#修复gitlab" class="heading-link"><i class="fas fa-link"></i></a>修复gitlab</h3>
+      
+<p>三个月之前在本地（台式机加路由器）架设了gitlab网站（<code>_gitlab_</code>局域网访问<code>192.168.0.80</code>），但是没能推广起来，后来自己也有很多事情这个就荒废了。我的gitlab用户名和密码Edge浏览器已经记住我把自己设置成了超级管理员，发现别人新建的private project我也能查看：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210326142323957.png" alt="image-20210326142323957"></p>
+<p>gitlab的故障无非就是因为长时间工作出现的存储硬盘挂载错误，导致网站能打开，但是仓库显示503错误。我重启了一下电脑就好了。</p>
+<p>gitlab加上电子实验记录这个事情，我打算是先打个样，然后跟樊老师推荐一下，看看能不能在实验室里边搞起来。电脑和网站都是现成的，只需要弄一个固定IP即可。</p>
+<p>gitlab默认是英文界面，但是可以自己选择中文：</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.centoscn.vip/2816.html">https://www.centoscn.vip/2816.html</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+
+        <h3 id="gitlab杂学">
+          <a href="#gitlab杂学" class="heading-link"><i class="fas fa-link"></i></a>GitLab杂学</h3>
+      
+<p>GitLab我是下定决心要好好使用的，局域网就局域网，美得很，主要是作为一个上传存档的作用，所以也不需要很好地联网。</p>
+<p><strong>gitlab登录界面定制</strong></p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43606948/article/details/85222755">https://blog.csdn.net/weixin_43606948/article/details/85222755</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>管理员登录admin area-》Preferences》Appearance</p>
+<p><strong>修改gitlab仓库存放目录</strong></p>
+<p>修改/etc/gitlab/gitlab.rb</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43606948/article/details/84890409">https://blog.csdn.net/weixin_43606948/article/details/84890409</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#配置gitlab的数据存储位置为&#x2F;home目录下，保证硬盘安全</span><br><span class="line">git_data_dirs(&#123; &quot;default&quot; &#x3D;&gt; &#123; &quot;path&quot; &#x3D;&gt; &quot;&#x2F;home&#x2F;gitlab&#x2F;git-data&quot; &#125; &#125;)</span><br></pre></td></tr></table></div></figure>
+<p>重新生成配置以及启动gitlab</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo gitlab-ctl reconfigure</span><br></pre></td></tr></table></div></figure>
+<p><strong>gitlab本地备份</strong></p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43606948/article/details/84890522">https://blog.csdn.net/weixin_43606948/article/details/84890522</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>修改/etc/gitlab/gitlab.rb</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab_rails[&#39;backup_path&#39;] &#x3D; &#39;&#x2F;home&#x2F;backups&#39;</span><br></pre></td></tr></table></div></figure>
+<p>修改配置后，记得：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-ctl reconfigure</span><br></pre></td></tr></table></div></figure>
+<p>备份的命令：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-rake gitlab:backup:create</span><br></pre></td></tr></table></div></figure>
+<p>自动备份则通过任务计划crontab 实现：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#输入命令crontab -e</span><br><span class="line">sudo crontab -e  </span><br><span class="line">#输入相应的任务</span><br><span class="line">0 2 * * * &#x2F;opt&#x2F;gitlab&#x2F;bin&#x2F;gitlab-rake gitlab:backup:create</span><br></pre></td></tr></table></div></figure>
+<p>编写完 /etc/crontab 文件之后，需要重新启动cron服务</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart crond</span><br></pre></td></tr></table></div></figure>
+<p>可设置只保留最近7天的备份，编辑配置文件 /etc/gitlab/gitlab.rb</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 数值单位：秒</span><br><span class="line">gitlab_rails[&#39;backup_keep_time&#39;] &#x3D; 604800</span><br></pre></td></tr></table></div></figure>
+<p><strong>gitlab数据恢复</strong></p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43606948/article/details/84890629">https://blog.csdn.net/weixin_43606948/article/details/84890629</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>假如备份文件地址如下：</p>
+<p><code>/home/backups/1499244722_2017_07_05_9.2.6_gitlab_backup.tar</code></p>
+<p>需要先停止 unicorn 和 sidekiq ，保证数据库没有新的连接，不会有写数据情况：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># 停止相关数据连接服务</span><br><span class="line">gitlab-ctl stop unicorn</span><br><span class="line">gitlab-ctl stop sidekiq</span><br><span class="line"># 指定恢复文件，会自动去备份目录找。确保备份目录中有这个文件。</span><br><span class="line"># 指定文件名的格式类似：1499242399_2017_07_05_9.2.6，程序会自动在文件名后补上：“_gitlab_backup.tar”</span><br><span class="line"># 一定按这样的格式指定，否则会出现 The backup file does not exist! 的错误</span><br><span class="line">对包加权限</span><br><span class="line">chmod -R 777 *</span><br><span class="line">gitlab-rake gitlab:backup:restore BACKUP&#x3D;1499242399_2017_07_05_9.2.6</span><br><span class="line"># 启动Gitlab</span><br><span class="line">gitlab-ctl start</span><br></pre></td></tr></table></div></figure>
+<p><strong>gitlab批量导入用户</strong></p>
+<p>先管理员登录系统管理界面，Profile Setting里边获得Private token</p>
+<p>回到shell 控制台，通过cd /home 切换到home 目录 （这里的目录可以自行定）</p>
+<p>在/home 下创建 userinfo.txt 文件,内容格式如下</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">12345678 test1@phpsong.com test1 张三</span><br><span class="line">12345678 test2@phpsong.com test2 李四</span><br><span class="line">密码 邮箱 用户名 别名</span><br></pre></td></tr></table></div></figure>
+<p>在/home <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://xn--gitlabAddUser-o40uy68bks2c.sh">下创建gitlabAddUser.sh</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 脚本，主要利用<code>curl</code>命令结合gitlab的api端口完成：</p>
+<figure class="highlight sh"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#gitlab用户批量录入脚本</span></span><br><span class="line">userinfo=<span class="string">&quot;userinfo.txt&quot;</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	password=`<span class="built_in">echo</span> <span class="variable">$line</span> | awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span>`</span><br><span class="line">	mail=`<span class="built_in">echo</span> <span class="variable">$line</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>`</span><br><span class="line">	username=`<span class="built_in">echo</span> <span class="variable">$line</span> | awk <span class="string">&#x27;&#123;print $3&#125;&#x27;</span>`</span><br><span class="line">	name=`<span class="built_in">echo</span> <span class="variable">$line</span> | awk <span class="string">&#x27;&#123;print $4&#125;&#x27;</span>`</span><br><span class="line">	curl -d <span class="string">&quot;password=<span class="variable">$password</span>&amp;email=<span class="variable">$mail</span>&amp;username=<span class="variable">$username</span>&amp;name=<span class="variable">$name</span>&amp;private_token=feGWSDFSEFWEFWEG&quot;</span> <span class="string">&quot;http://190.168.0.80/api/v3/users&quot;</span></span><br><span class="line"><span class="keyword">done</span> &lt;<span class="variable">$userinfo</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="在本地服务器上搞gitlab-pages">
+          <a href="#在本地服务器上搞gitlab-pages" class="heading-link"><i class="fas fa-link"></i></a>在本地服务器上搞GitLab Pages</h3>
+      
+<p>如果能够把个人博客跟GitLab结合起来，那就非常完美了。不过这肯定会增加服务器的负担，所以我只是收集一下资料，并不会真去尝试。</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://my.oschina.net/doctorlzr1988/blog/3044964">https://my.oschina.net/doctorlzr1988/blog/3044964</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<ol>
+<li><strong>开启功能</strong></li>
+</ol>
+<p>编辑 /etc/gitlab/gitlab.rb文件，修改如下两行：</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">##! Define to enable GitLab Pages</span><br><span class="line">pages_external_url &quot;http:&#x2F;&#x2F;R7102&#x2F;&quot;</span><br><span class="line">gitlab_pages[&#39;enable&#39;] &#x3D; true</span><br></pre></td></tr></table></div></figure>
+<p>注意的这里的pages_external_url，配置的是Pages使用的域名。如果你没有域名，就先随便写个主机名什么的。之后我们可能通过配置Nginx来解决。</p>
+<p>最好通过 <strong>gitlab-ctl restart</strong> 重启GitLab，使得GitLab Pages功能生效。</p>
+<ol start="2">
+<li><strong>安装配置GitLab Runner</strong>，</li>
+</ol>
+<p>为了能够自动发布Pages，我们需要安装GitLab Runner，然后通过GitLab CI做到Pages内容的自动更新。</p>
+<p><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.oschina.net/action/GoToLink?url=https%3A%2F%2Fpackages.gitlab.com%2Frunner%2Fgitlab-runner">https://packages.gitlab.com/runner/gitlab-runner</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>下载GitLab Runner的安装包，安装好之后，就可以通过命令为我们的项目添加runner了，在命令行中输入以下命令，按照提示一步一步完成即可。</p>
+<figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gitlab-runner register</span><br></pre></td></tr></table></div></figure>
+<p>其中需要填写URL和Token，可以在GitLab项目的概览-&gt;Runners找到，类似下图：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/52f8c7f53da1ab5708b0c1262b15126a5c2.jpg" alt="52f8c7f53da1ab5708b0c1262b15126a5c2.jpg"></p>
+<ol start="3">
+<li><strong>配置Pages服务的CI</strong></li>
+</ol>
+<p>这个东西可以参考<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/gitlab-pages">hexo站点的</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，主要是在根目录下创建<code>.gitlab-ci.yml</code>文件：</p>
+<figure class="highlight yaml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">image:</span> <span class="string">node:10-alpine</span> <span class="comment"># use nodejs v10 LTS</span></span><br><span class="line"><span class="attr">cache:</span></span><br><span class="line">  <span class="attr">paths:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">node_modules/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">before_script:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="string">-g</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line"><span class="attr">pages:</span></span><br><span class="line">  <span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line">  <span class="attr">artifacts:</span></span><br><span class="line">    <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">public</span></span><br><span class="line">  <span class="attr">only:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">master</span></span><br></pre></td></tr></table></div></figure>
+<ol start="4">
+<li><strong>如何访问Pages页面呢？</strong></li>
+</ol>
+<p>如果你有在上面配置开启Pages时配置了域名了，那么直接访问：<strong><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://xn--Git-x69d03sg81d5d7a.xn--eqrt2g/%E5%B7%A5%E7%A8%8B%E5%90%8D">http://你的Git账号.域名/工程名</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></strong>，例如：</p>
+<p><em><span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="http://xiaowang.mypages.com/project01">http://xiaowang.mypages.com/project01</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></em></p>
+<p>但是如果你不想那么麻烦还得配置域名的话，这里也有解决方法，由于GitLab Pages服务是部署到Nginx中，我们可以同配置Nginx来通过IP地址访问。</p>
+<p>首先要找啊找，找到Pages的发布位置，和GitLab内置Nginx的位置，分别如下：</p>
+<p>1、Pages部署目录：/var/opt/gitlab/gitlab-rails/shared/pages</p>
+<p>2、内置Nginx目录：/var/opt/gitlab/nginx</p>
+<p>然后编辑nginx目录下的conf/gitlab-pages.conf文件，内容如下：</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">  listen 6869; <span class="comment">## 端口根据需要填写</span></span><br><span class="line">  server_name 10.21.100.200; <span class="comment">## IP根据实际情况填写</span></span><br><span class="line">  server_tokens off; <span class="comment">## Don&#x27;t show the nginx version number, a security best practice</span></span><br><span class="line"> </span><br><span class="line">  <span class="comment">## Disable symlink traversal</span></span><br><span class="line">  disable_symlinks on;</span><br><span class="line"> </span><br><span class="line">  access_log  /var/<span class="built_in">log</span>/gitlab/nginx/gitlab_pages_access.log gitlab_access;</span><br><span class="line">  error_log   /var/<span class="built_in">log</span>/gitlab/nginx/gitlab_pages_error.log;</span><br><span class="line"> </span><br><span class="line">  <span class="comment"># Pass everything to pages daemon</span></span><br><span class="line">  location / &#123;</span><br><span class="line">    <span class="comment"># 指向pages的发布目录</span></span><br><span class="line">    root /var/opt/gitlab/gitlab-rails/shared/pages;</span><br><span class="line">    index index.html;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="comment"># Define custom error pages</span></span><br><span class="line">  error_page 403 /403.html;</span><br><span class="line">  error_page 404 /404.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></div></figure>
+<p>配置好后重启Nginx：gitlab-ctl restart nginx</p>
+<p>访问页面：<code>http://IP:端口/gitlab账号/工程名/public/</code>，例如：<code>http://10.21.100.200:6869/xiaowang/project01/public/#/</code></p>
+</div><footer class="post-footer"><div class="post-ending ending"><div class="ending__text">------ END ------</div></div><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2021/04/01/use-gitlab/">https://sheldonxxd.github.io/2021/04/01/use-gitlab/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/04/01/standalone-HTML-image-embedding/"><span class="paginator-prev__text">standalone-HTML-image-embedding</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#gitlab%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="toc-text">
+          gitlab的部署</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8Dgitlab"><span class="toc-text">
+          修复gitlab</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gitlab%E6%9D%82%E5%AD%A6"><span class="toc-text">
+          GitLab杂学</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E6%9C%AC%E5%9C%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A%E6%90%9Egitlab-pages"><span class="toc-text">
+          在本地服务器上搞GitLab Pages</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/github-logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">23</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">5</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">31</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', 'Please enter characters');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: '0gcYbA1TK5HEHNGtnT0Nm4Bz-9Nh9j0Va',
+    appKey: 'k7pXknc0TbFWRs8E591EH6jE',
+    notify: true,
+    verify: true,
+    placeholder: 'sea-comments',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: false,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>
