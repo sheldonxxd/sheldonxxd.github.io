@@ -1,3 +1,5 @@
+https://sheldonxxd.github.io/2021/04/15/KMeans_clustering_filter/
+https://sheldonxxd.github.io/2021/04/14/summarize_tool_for_reading_notes/
 https://sheldonxxd.github.io/2021/04/13/try_jupyter_3/
 https://sheldonxxd.github.io/2021/04/12/singleExpDist_plot/
 https://sheldonxxd.github.io/2021/04/08/auto_paint_data_analysis_pipeline/
@@ -6,5 +8,3 @@ https://sheldonxxd.github.io/2021/04/02/summarize-lab-notes/
 https://sheldonxxd.github.io/2021/04/01/thinkAboutBlog/
 https://sheldonxxd.github.io/2021/04/01/use-gitlab/
 https://sheldonxxd.github.io/2021/04/01/standalone-HTML-image-embedding/
-https://sheldonxxd.github.io/2021/03/31/originLab-peakAnalysis/
-https://sheldonxxd.github.io/2021/01/17/jupyterNotebook-extension/
