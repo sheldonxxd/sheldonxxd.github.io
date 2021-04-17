@@ -1854,9 +1854,6 @@ kbd {
 .post-meta-item--visitors {
   color: #fc6423;
 }
-.post-ending {
-  margin-bottom: 1rem;
-}
 .post-copyright {
   margin-bottom: 1rem;
 }
@@ -2235,12 +2232,6 @@ kbd {
 }
 .nightmode .diff .deletion {
   background-color: transparent;
-}
-.ending {
-  padding: 1rem 0 0;
-  text-align: center;
-  color: var(--color-gray-400);
-  border-top: 1px dashed var(--color-gray-300);
 }
 .back2top {
   position: fixed;
