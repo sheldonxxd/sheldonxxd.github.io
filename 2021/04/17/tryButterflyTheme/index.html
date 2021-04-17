@@ -5,12 +5,10 @@
 <meta property="og:site_name" content="Sea">
 <meta property="og:description" content="为了 footnote 换主题，结果发现还是 stun 好用，只不过是差了一个 markdown-it-plus 的插件而已。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://sheldonxxd.github.io/2021/04/17/tryButterflyTheme/image-20210417212524378.png">
 <meta property="article:published_time" content="2021-04-17T13:12:01.000Z">
-<meta property="article:modified_time" content="2021-04-17T14:18:22.877Z">
+<meta property="article:modified_time" content="2021-04-17T14:20:53.739Z">
 <meta property="article:author" content="Xiaodong Xie">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://sheldonxxd.github.io/2021/04/17/tryButterflyTheme/image-20210417212524378.png"><title>为了网页正常显示脚注 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/04/17/tryButterflyTheme/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+<meta name="twitter:card" content="summary"><title>为了网页正常显示脚注 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/04/17/tryButterflyTheme/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
 var CONFIG = {
   root: '/',
   algolia: undefined,
@@ -39,8 +37,7 @@ window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></he
 <figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm un hexo-renderer-marked --save</span><br><span class="line">npm i hexo-renderer-markdown-it-plus --save</span><br></pre></td></tr></table></div></figure>
 <p>然后在具体使用的使用，对要做脚注的内容用方括号，后面再搞一个方括号放 key：</p>
 <figure class="highlight plain"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[content][^key]</span><br></pre></td></tr></table></div></figure>
-<p>注意 key 前面得有一个 <code>^</code> 符号，key的命名就是英文字母加数字即可，可以等同于 citation key 。不用考虑排序问题，参考文献目录会根据在文中出现的顺序自动排序的，具体效果👇：</p>
-<p><img src="/2021/04/17/tryButterflyTheme/image-20210417212524378.png" alt="image-20210417212524378"></p>
+<p>注意 key 前面得有一个 <code>^</code> 符号，key的命名就是英文字母加数字即可，可以等同于 citation key 。不用考虑排序问题，参考文献目录会根据在文中出现的顺序自动排序的。</p>
 <p>后来又发现 butterfly 中开启 search 的插件有点麻烦，果断换回来 stun，发现 footnote 也能正确显示了，非常棒！</p>
 <p>然后我还取消了 post 末尾的 <code>--- END ---</code></p>
 <figure class="highlight yaml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The widget of post.</span></span><br><span class="line"><span class="attr">post_widget:</span></span><br><span class="line">  <span class="comment"># Whether to show tags at the bottom of post.</span></span><br><span class="line">  <span class="attr">tags:</span> <span class="literal">true</span></span><br><span class="line">  <span class="comment"># Whether to show &quot;------ END ------&quot; at the bottom of post.</span></span><br><span class="line">  <span class="attr">end_text:</span></span><br><span class="line">    <span class="attr">enable:</span> <span class="literal">false</span></span><br><span class="line">    <span class="comment"># Whether to show a horizon line before &quot;------ END ------&quot;.</span></span><br><span class="line">    <span class="attr">horizon_line:</span> <span class="literal">false</span></span><br></pre></td></tr></table></div></figure>
