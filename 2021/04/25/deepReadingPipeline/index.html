@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="很多时候要针对一个主题进行文献阅读，会关注不同文章的不同局部细节内容，并且做笔记。做完笔记后，可以把相关的参考文献重新汇总一下，和阅读笔记一起放到 mendeley 的新建子目录内。这个过程涉及到一些信息的提取和文件格式的转化，因此整合了一些代码，方便自己。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="文献精读工作流">
+<meta property="og:url" content="https://sheldonxxd.github.io/2021/04/25/deepReadingPipeline/index.html">
+<meta property="og:site_name" content="Sea">
+<meta property="og:description" content="很多时候要针对一个主题进行文献阅读，会关注不同文章的不同局部细节内容，并且做笔记。做完笔记后，可以把相关的参考文献重新汇总一下，和阅读笔记一起放到 mendeley 的新建子目录内。这个过程涉及到一些信息的提取和文件格式的转化，因此整合了一些代码，方便自己。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210425131836781.png">
+<meta property="article:published_time" content="2021-04-25T05:27:52.000Z">
+<meta property="article:modified_time" content="2021-04-25T05:33:03.000Z">
+<meta property="article:author" content="Xiaodong Xie">
+<meta property="article:tag" content="bib">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210425131836781.png"><title>文献精读工作流 | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/04/25/deepReadingPipeline/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: undefined,
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="https://sheldonxxd.github.io/"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">文献精读工作流</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-04-25</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-04-25</span></span></div></header><div class="post-body"><p>很多时候要针对一个主题进行文献阅读，会关注不同文章的不同局部细节内容，并且做笔记。做完笔记后，可以把相关的参考文献重新汇总一下，和阅读笔记一起放到 mendeley 的新建子目录内。这个过程涉及到一些信息的提取和文件格式的转化，因此整合了一些代码，方便自己。</p>
+<p>具体方法是这样的：</p>
+<ol>
+<li>使用<code>newPost.bat</code>脚本在<code>_posts</code>目录下生成一个带有 front matter 模板的 markdown 文件</li>
+<li>打开 mendeley 查找和阅读刚兴趣主题的文献，并在 markdown 中做笔记</li>
+<li>修改和补充 front matter 中的信息，<code>title</code>、<code>excerpt</code>、<code>tags</code>等信息是必需的</li>
+<li>从typora中直接复制 markdown 的文件路径，作为修改上面<code>collectCitations.py</code> 中 md 的值（字符串），然后运行脚本</li>
+<li>生成的 refs.bib 文件保存在 markdown 笔记文件的附录文件夹中，可以从 mendeley 中新建一个目录，然后 import 这个 bib 文件</li>
+<li>将 markdown 笔记用 typora 导出为 html，然后用 <code>htmlEmbedding.py</code> 脚本导出为 standalone 的网页，作为附件添加到 mendeley 相应笔记条目的 files 中</li>
+</ol>
+<p>最后mendeley中效果如下所示：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210425131836781.png" alt="image-20210425131836781"></p>
+
+        <h3 id="collectcitationspy">
+          <a href="#collectcitationspy" class="heading-link"><i class="fas fa-link"></i></a>collectCitations.py</h3>
+      
+<p>新增了“根据 markdown 的 frontmatter 信息自动添加 entry 到 bib 文件的方法”，新版本的代码如下：</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bibtexparser</span><br><span class="line"><span class="keyword">from</span> bibtexparser.bwriter <span class="keyword">import</span> BibTexWriter</span><br><span class="line"><span class="keyword">from</span> bibtexparser.bibdatabase <span class="keyword">import</span> BibDatabase</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> yaml </span><br><span class="line"><span class="keyword">import</span> datetime</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bib</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, fps</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        fps: dict, text.md filepath &amp; library.bib filepath</span></span><br><span class="line"><span class="string">        &#123;&#x27;text&#x27;:fp1, &#x27;library&#x27;:fp2&#125;</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        self.fp = fps[<span class="string">&#x27;text&#x27;</span>]</span><br><span class="line">        self.wks, self.fname = os.path.split(self.fp)</span><br><span class="line">        base, _ = os.path.splitext(self.fp)</span><br><span class="line">        self.assets = base +<span class="string">&#x27;/&#x27;</span>  <span class="comment"># markdown 文件的附件目录</span></span><br><span class="line">        self.bibpath = fps[<span class="string">&#x27;library&#x27;</span>]</span><br><span class="line">        self.data = []  <span class="comment"># 每一个entry都是dict，一起装到list里边</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">load</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        load the library.bib</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        fp = self.bibpath</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(fp, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> bibtex_file:</span><br><span class="line">            bib_database = bibtexparser.load(bibtex_file)</span><br><span class="line">        self.library = bib_database.entries_dict</span><br><span class="line">        print(<span class="string">&#x27;&#123;&#125; entries loaded!&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">len</span>(self.library)))</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">collect</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        collect citation key from text.md</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        fp = self.fp</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(fp, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">            data = f.read()</span><br><span class="line">        pattern = <span class="string">&quot;\[@[^]]+]&quot;</span></span><br><span class="line">        <span class="comment"># 使用方括号列举不能匹配的字符]，确保只找到一个[@???]</span></span><br><span class="line">        a = re.findall(pattern, data)</span><br><span class="line">        test = <span class="string">&#x27;&#x27;</span>.join(a)</span><br><span class="line">        pattern = <span class="string">&#x27;@([\w\-:.#$%&amp;-+?&lt;&gt;~/]+);?&#x27;</span></span><br><span class="line">        <span class="comment"># citationkey中可能包含一些符号类字符，以上都是pandoc允许的</span></span><br><span class="line">        <span class="comment"># https://pandoc.org/MANUAL.html#extension-citations</span></span><br><span class="line">        <span class="comment"># 注意对中括号内的`-`符号进行转义</span></span><br><span class="line">        b = re.findall(pattern, test)</span><br><span class="line">        self.keys = <span class="built_in">list</span>(<span class="built_in">set</span>(b))</span><br><span class="line">        print(<span class="string">&#x27;&#123;&#125; citations fetched!&#x27;</span>.<span class="built_in">format</span>(<span class="built_in">len</span>(self.keys)))</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 根据收集到的key，到library里边把具体的信息 ditc 拿到</span></span><br><span class="line">        data = []</span><br><span class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> self.keys:</span><br><span class="line">            data.append(self.library[key])</span><br><span class="line">        self.data = data  <span class="comment"># 方便后面再 append</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">save</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        save the new subcollection bib file to assets folder</span></span><br><span class="line"><span class="string">        https://bibtexparser.readthedocs.io/en/master/tutorial.html</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(self.assets):</span><br><span class="line">           os.mkdir(self.assets)</span><br><span class="line">        db = BibDatabase()</span><br><span class="line">        db.entries = self.data</span><br><span class="line">        writer = BibTexWriter()</span><br><span class="line">        fp2 = os.path.join(self.assets, <span class="string">&#x27;refs.bib&#x27;</span>)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(fp2, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> bibfile:</span><br><span class="line">            <span class="comment"># 注意编码是 utf-8，默认的 gbk 会出错</span></span><br><span class="line">            bibfile.write(writer.write(db))</span><br><span class="line">        print(<span class="string">&#x27;[Save to] &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(fp2))</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AddEntry</span>(<span class="params">Bib</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    把 markdown 本身生成一条 entry 放到 汇总的 bib 文件中。</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, fps</span>):</span></span><br><span class="line">        <span class="built_in">super</span>(AddEntry, self).__init__(fps)</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">fetchYAML</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="comment"># 先读取 markdown 文件</span></span><br><span class="line">        fp = self.fp </span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(fp, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f: </span><br><span class="line">            data = f.readlines()</span><br><span class="line">        <span class="comment"># 获取文件头的 front matter 信息</span></span><br><span class="line">        idx = <span class="number">0</span></span><br><span class="line">        i = <span class="number">0</span></span><br><span class="line">        cout = []</span><br><span class="line">        <span class="keyword">while</span> idx&lt;<span class="number">2</span>:</span><br><span class="line">            line = data[i]</span><br><span class="line">            <span class="keyword">if</span> line.startswith(<span class="string">&#x27;---&#x27;</span>):</span><br><span class="line">                idx += <span class="number">1</span></span><br><span class="line">                cout.append(i)</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">        start, end = cout</span><br><span class="line">        info = data[start+<span class="number">1</span>: end]</span><br><span class="line">        info = <span class="string">&#x27;&#x27;</span>.join(info)</span><br><span class="line">        info_dict = yaml.load(info, Loader=yaml.FullLoader)</span><br><span class="line">        <span class="comment"># &#x27;date&#x27;: datetime.datetime(2021, 4, 25, 10, 53, 32)</span></span><br><span class="line">        self.info = info_dict</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">makeEntry</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">        使用bibtexparser</span></span><br><span class="line"><span class="string">        将front matter转换为bib中的一个entry</span></span><br><span class="line"><span class="string">        然后 append 到 self.data中</span></span><br><span class="line"><span class="string">        主要是有：</span></span><br><span class="line"><span class="string">        1. citation key</span></span><br><span class="line"><span class="string">        2. abstract (excerpt)</span></span><br><span class="line"><span class="string">        3. author (default is Xie, Xiaodong) </span></span><br><span class="line"><span class="string">        4. journal (default is sheldon-notes)</span></span><br><span class="line"><span class="string">        5. title</span></span><br><span class="line"><span class="string">        6. year</span></span><br><span class="line"><span class="string">        7. volumn (month)</span></span><br><span class="line"><span class="string">        8. number (day)</span></span><br><span class="line"><span class="string">        ---</span></span><br><span class="line"><span class="string">        file 可以自己手动添加导出的html文件</span></span><br><span class="line"><span class="string">        &#x27;&#x27;&#x27;</span></span><br><span class="line">        info = self.info  <span class="comment"># 一个字典</span></span><br><span class="line">        entry = &#123;&#125;</span><br><span class="line">        entry[<span class="string">&#x27;year&#x27;</span>] = <span class="built_in">str</span>(info[<span class="string">&#x27;date&#x27;</span>].year)  </span><br><span class="line">        <span class="comment"># entry中的内容必须都是字符串</span></span><br><span class="line">        entry[<span class="string">&#x27;volumn&#x27;</span>] = <span class="built_in">str</span>(info[<span class="string">&#x27;date&#x27;</span>].month)</span><br><span class="line">        entry[<span class="string">&#x27;number&#x27;</span>] = <span class="built_in">str</span>(info[<span class="string">&#x27;date&#x27;</span>].day)</span><br><span class="line">        <span class="comment"># https://blog.csdn.net/cmzsteven/article/details/64906245</span></span><br><span class="line">        entry[<span class="string">&#x27;title&#x27;</span>] = info[<span class="string">&#x27;title&#x27;</span>]</span><br><span class="line">        entry[<span class="string">&#x27;abstract&#x27;</span>] = info[<span class="string">&#x27;excerpt&#x27;</span>]</span><br><span class="line">        entry[<span class="string">&#x27;journal&#x27;</span>] = <span class="string">&#x27;sheldon-notes&#x27;</span></span><br><span class="line">        entry[<span class="string">&#x27;author&#x27;</span>] = <span class="string">&#x27;Xie, Xiaodong&#x27;</span></span><br><span class="line">        entry[<span class="string">&#x27;ENTRYTYPE&#x27;</span>] = <span class="string">&#x27;article&#x27;</span></span><br><span class="line">        entry[<span class="string">&#x27;keywords&#x27;</span>] = <span class="string">&#x27;,&#x27;</span>.join(info[<span class="string">&#x27;tags&#x27;</span>])</span><br><span class="line">        entry[<span class="string">&#x27;ID&#x27;</span>] = <span class="string">&#x27;xxd_&#123;&#125;-&#123;&#125;-&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(entry[<span class="string">&#x27;year&#x27;</span>], </span><br><span class="line">                                         entry[<span class="string">&#x27;volumn&#x27;</span>], </span><br><span class="line">                                         entry[<span class="string">&#x27;number&#x27;</span>]</span><br><span class="line">                                         )</span><br><span class="line">        self.data.append(entry)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    <span class="comment"># 指定 markdown 文件路径</span></span><br><span class="line">    md = <span class="string">r&#x27;D:\log\main\source\_posts\cell_PAINT_imaging.md&#x27;</span></span><br><span class="line">    fps = &#123;</span><br><span class="line">        <span class="string">&#x27;text&#x27;</span>: md,</span><br><span class="line">        <span class="string">&#x27;library&#x27;</span>: <span class="string">r&quot;D:\papers\library.bib&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 初始化对象</span></span><br><span class="line">    xxd = AddEntry(fps)</span><br><span class="line">    <span class="comment"># 加载 library.bib 总库</span></span><br><span class="line">    xxd.load()</span><br><span class="line">    <span class="comment"># 收集 markdown 中引用了的条目</span></span><br><span class="line">    xxd.collect()</span><br><span class="line">    <span class="comment"># 收集 markdown 中的 front matter信息</span></span><br><span class="line">    xxd.fetchYAML()</span><br><span class="line">    <span class="comment"># 根据 front matter 制作一条新的 entry</span></span><br><span class="line">    xxd.makeEntry()</span><br><span class="line">    <span class="comment"># 保存子集 refs.bib 到 markdown 附件目录</span></span><br><span class="line">    xxd.save()</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="newpostbat">
+          <a href="#newpostbat" class="heading-link"><i class="fas fa-link"></i></a>newPost.bat</h3>
+      
+<p>用于在<code>_posts</code>目录下新建一个带 front matter 的markdown 文件的小脚本。</p>
+<figure class="highlight bash"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">:: 2021-01-12 10:31:58</span><br><span class="line">:: 生成具有FrontMatter的markdown文件</span><br><span class="line">:: 具有title、excerpt、date、tags、categories等</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">set</span> d=%date:~0,4%-%date:~5,2%-%date:~8,2% %time:~0,8%</span><br><span class="line">REM 收集完时间参数后，声明采用UTF-8编码</span><br><span class="line">chcp 65001</span><br><span class="line"><span class="built_in">set</span> /p t=Please input the filename (no space):</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> ---&gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> title: %t%&gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> excerpt: This is a summary of this draft&gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> date: %d%&gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> tags: &gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> categories: &gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> - 草稿 &gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> ---&gt;&gt;%t%.md</span><br><span class="line"><span class="built_in">echo</span> 从这里开始写&gt;&gt;%t%.md</span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="htmlembeddingpy">
+          <a href="#htmlembeddingpy" class="heading-link"><i class="fas fa-link"></i></a>htmlEmbedding.py</h3>
+      
+<p>把 typora 导出的 html 中的图片转为 base64 编码字节嵌入网页中，使之能够离线访问。</p>
+<figure class="highlight python"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os,sys, shutil</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> base64 </span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> unquote, urlopen</span><br><span class="line"><span class="keyword">import</span> PySimpleGUI <span class="keyword">as</span> sg</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">app</span>:</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;通用版简易工具用户界面</span></span><br><span class="line"><span class="string">    1. 使用字典传入工具函数集</span></span><br><span class="line"><span class="string">    2. 按钮平铺，每个按钮对应一个函数功能</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self,app_name,func_dict</span>):</span></span><br><span class="line">        self.funcs = func_dict</span><br><span class="line">        self.layout = self.design()</span><br><span class="line">        self.window = sg.Window(app_name, </span><br><span class="line">                                self.layout,</span><br><span class="line">                                location=(<span class="number">400</span>,<span class="number">400</span>),</span><br><span class="line">                                grab_anywhere=<span class="literal">True</span>,</span><br><span class="line">                                disable_minimize=<span class="literal">True</span>,</span><br><span class="line">                                keep_on_top=<span class="literal">True</span>)</span><br><span class="line">        self.run()</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">design</span>(<span class="params">self</span>):</span></span><br><span class="line">        layout = [[sg.Button(x) <span class="keyword">for</span> x <span class="keyword">in</span> self.funcs.keys()],</span><br><span class="line">                [sg.Text(<span class="string">&quot;欢迎使用&quot;</span>,size=(<span class="number">20</span>,<span class="number">1</span>),key=<span class="string">&quot;_INFO_&quot;</span>)]]</span><br><span class="line">        <span class="keyword">return</span> layout</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">run</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">            event,values = self.window.Read()</span><br><span class="line">            <span class="keyword">for</span> key <span class="keyword">in</span> self.funcs.keys():</span><br><span class="line">                <span class="keyword">if</span> event==key:</span><br><span class="line">                    fp = sg.popup_get_file(<span class="string">&#x27;打开需要转化的HTML文件&#x27;</span>)</span><br><span class="line">                    <span class="keyword">if</span> fp <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                        info = self.funcs[key](fp)</span><br><span class="line">                        self.window.Element(<span class="string">&quot;_INFO_&quot;</span>).Update(key+<span class="string">&quot;:&quot;</span>+info)</span><br><span class="line">            <span class="keyword">if</span> event <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">        self.window.Close()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先使用typora导出html，再使用此代码搞定图片链接编码成base64</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">img_base64</span>(<span class="params">html_filepath</span>):</span></span><br><span class="line">    wks,html_filename = os.path.split(html_filepath)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(wks,html_filename),<span class="string">&quot;r&quot;</span>,encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        content = f.read()</span><br><span class="line">    <span class="comment"># soup = BeautifulSoup(content,features=&quot;lxml&quot;)</span></span><br><span class="line">    soup = BeautifulSoup(content,features=<span class="string">&quot;html.parser&quot;</span>)</span><br><span class="line">    <span class="comment"># 2020-06-12 21:03:12</span></span><br><span class="line">    <span class="comment"># 代码在新机器中运行出错，lxml不行，只好用html.parser</span></span><br><span class="line">    <span class="comment"># 参考 https://www.cnblogs.com/awakenedy/p/9753326.html</span></span><br><span class="line">    imgs = soup.find_all(<span class="string">&quot;img&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> img <span class="keyword">in</span> imgs:</span><br><span class="line">        imgpath = img[<span class="string">&#x27;src&#x27;</span>]  </span><br><span class="line">        <span class="comment"># 2020-12-09 17:20:19 当附件图像存在于中文文件夹时，使用markdown-to-standalone-html转化html会乱码，需要处理一下</span></span><br><span class="line">        <span class="comment"># 参考（https://blog.csdn.net/mouday/article/details/80278938）</span></span><br><span class="line">        imgpath = unquote(imgpath, encoding=<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        pref = imgpath.split(<span class="string">&quot;.&quot;</span>)[-<span class="number">1</span>]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> imgpath.startswith(<span class="string">&quot;http&quot;</span>):</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(os.path.join(wks,imgpath),<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                base64_data = base64.b64encode(f.read())</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                response = urlopen(imgpath)</span><br><span class="line">                <span class="comment"># 使用requests模块会报错。</span></span><br><span class="line">                base64_data = base64.b64encode(response.read())</span><br><span class="line">                <span class="comment"># 2021-03-29 14:15:16  如果图片已经上传到阿里云，则是链接形式</span></span><br><span class="line">            <span class="keyword">except</span>:</span><br><span class="line">                print(<span class="string">&#x27;Internet Connection Error&#x27;</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">        img[<span class="string">&#x27;src&#x27;</span>] = <span class="string">&quot;data:image/&#123;&#125;;base64,&quot;</span>.<span class="built_in">format</span>(pref)+<span class="built_in">str</span>(base64_data,<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">        <span class="comment"># 注意base64是bytes，使用str转化时要带encoding参数</span></span><br><span class="line">        <span class="comment"># 对img的修改都是inplace的，从属于soup对象</span></span><br><span class="line">    ex_filename = os.path.join(wks,html_filename)</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(ex_filename,<span class="string">&quot;w&quot;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        <span class="comment">### 覆盖保存html文件</span></span><br><span class="line">        <span class="comment">## 2021-03-29 16:26:15 </span></span><br><span class="line">        <span class="comment"># 注意hexo server也会渲染html文件，但是会报错，所以导出html文件后转移到桌面</span></span><br><span class="line">        f.write(<span class="built_in">str</span>(soup))</span><br><span class="line">    shutil.move(ex_filename, os.path.expanduser(<span class="string">&#x27;~/Desktop/ex-&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(html_filename)))</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;转化了%d张图像&quot;</span>%(<span class="built_in">len</span>(imgs))</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app_name = <span class="string">&quot;img_base64&quot;</span></span><br><span class="line">    func_dict = &#123;<span class="string">&quot;base64&quot;</span>:img_base64&#125;</span><br><span class="line">    worker = app(app_name,func_dict)</span><br><span class="line">    worker.run()</span><br><span class="line">    <span class="comment"># os.system(&quot;pause&quot;)</span></span><br></pre></td></tr></table></div></figure>
+</div><footer class="post-footer"><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2021/04/25/deepReadingPipeline/">https://sheldonxxd.github.io/2021/04/25/deepReadingPipeline/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/bib/">bib</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/04/17/tryButterflyTheme/"><span class="paginator-prev__text">为了网页正常显示脚注</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#collectcitationspy"><span class="toc-text">
+          collectCitations.py</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#newpostbat"><span class="toc-text">
+          newPost.bat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#htmlembeddingpy"><span class="toc-text">
+          htmlEmbedding.py</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/github-logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">37</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">7</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">51</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', 'Please enter characters');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: '0gcYbA1TK5HEHNGtnT0Nm4Bz-9Nh9j0Va',
+    appKey: 'k7pXknc0TbFWRs8E591EH6jE',
+    notify: true,
+    verify: true,
+    placeholder: 'sea-comments',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: false,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>

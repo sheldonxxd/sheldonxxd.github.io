@@ -1,3 +1,4 @@
+https://sheldonxxd.github.io/2021/04/25/deepReadingPipeline/
 https://sheldonxxd.github.io/2021/04/17/tryButterflyTheme/
 https://sheldonxxd.github.io/2021/04/17/markdown-word/
 https://sheldonxxd.github.io/2021/04/17/markdown-bib/
@@ -7,4 +8,3 @@ https://sheldonxxd.github.io/2021/04/15/KMeans_clustering_filter/
 https://sheldonxxd.github.io/2021/04/14/summarize_tool_for_reading_notes/
 https://sheldonxxd.github.io/2021/04/13/try_jupyter_3/
 https://sheldonxxd.github.io/2021/04/12/singleExpDist_plot/
-https://sheldonxxd.github.io/2021/04/08/auto_paint_data_analysis_pipeline/
