@@ -1,0 +1,513 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="format-detection" content="telephone=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black"><link rel="icon" href="/images/icons/favicon-16x16.png?v=2.4.0" type="image/png" sizes="16x16"><link rel="icon" href="/images/icons/favicon-32x32.png?v=2.4.0" type="image/png" sizes="32x32"><meta name="description" content="自己根据日常学习工作流程开发的笔记管理工具，可以当作一个 typora 的加强版侧边栏，所以取名为 xSidebar。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单好用强大的个人文库管理工具——xSidebar">
+<meta property="og:url" content="https://sheldonxxd.github.io/2021/05/16/20210516-xSidebar/index.html">
+<meta property="og:site_name" content="Sea">
+<meta property="og:description" content="自己根据日常学习工作流程开发的笔记管理工具，可以当作一个 typora 的加强版侧边栏，所以取名为 xSidebar。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210516071753524.png">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/1.gif">
+<meta property="og:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210516075630757.png">
+<meta property="article:published_time" content="2021-05-16T01:58:30.000Z">
+<meta property="article:modified_time" content="2021-05-16T02:06:37.831Z">
+<meta property="article:author" content="Xiaodong Xie">
+<meta property="article:tag" content="markdown">
+<meta property="article:tag" content="xSidebar">
+<meta property="article:tag" content="pyQt5">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210516071753524.png"><title>简单好用强大的个人文库管理工具——xSidebar | Sea</title><link ref="canonical" href="https://sheldonxxd.github.io/2021/05/16/20210516-xSidebar/"><link rel="dns-prefetch" href="https://cdn.jsdelivr.net"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.12.1/css/all.min.css" type="text/css"><link rel="stylesheet" href="/css/index.css?v=2.4.0"><script>var Stun = window.Stun || {};
+var CONFIG = {
+  root: '/',
+  algolia: undefined,
+  assistSearch: undefined,
+  fontIcon: {"prompt":{"success":"fas fa-check-circle","info":"fas fa-arrow-circle-right","warning":"fas fa-exclamation-circle","error":"fas fa-times-circle"},"copyBtn":"fas fa-copy"},
+  sidebar: {"offsetTop":"20px","tocMaxDepth":6},
+  header: {"enable":true,"showOnPost":true,"scrollDownIcon":true},
+  postWidget: undefined,
+  nightMode: {"enable":true},
+  back2top: {"enable":true},
+  codeblock: {"style":"default","highlight":"light","wordWrap":false},
+  reward: false,
+  fancybox: false,
+  zoomImage: {"gapAside":"20px"},
+  galleryWaterfall: undefined,
+  lazyload: false,
+  pjax: undefined,
+  externalLink: {"icon":{"enable":true,"name":"fas fa-external-link-alt"}},
+  shortcuts: undefined,
+  prompt: {"copyButton":"Copy","copySuccess":"Copy Success","copyError":"Copy Error"},
+  sourcePath: {"js":"js","css":"css","images":"images"},
+};
+
+window.CONFIG = CONFIG;</script><meta name="generator" content="Hexo 5.3.0"></head><body><div class="container" id="container"><header class="header" id="header"><div class="header-inner"><nav class="header-nav header-nav--fixed"><div class="header-nav-inner"><div class="header-nav-menubtn"><i class="fas fa-bars"></i></div><div class="header-nav-menu"><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="https://sheldonxxd.github.io/"><span class="header-nav-menu-item__text">Home</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/archives/"><span class="header-nav-menu-item__icon"><i class="fas fa-folder-open"></i></span><span class="header-nav-menu-item__text">Archives</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/categories/"><span class="header-nav-menu-item__icon"><i class="fas fa-layer-group"></i></span><span class="header-nav-menu-item__text">Categories</span></a></div><div class="header-nav-menu-item"><a class="header-nav-menu-item__link" href="/tags/"><span class="header-nav-menu-item__icon"><i class="fas fa-tags"></i></span><span class="header-nav-menu-item__text">Tags</span></a></div></div><div class="header-nav-search"><span class="header-nav-search__icon"><i class="fas fa-search"></i></span><span class="header-nav-search__text">Search</span></div><div class="header-nav-mode"><div class="mode"><div class="mode-track"><span class="mode-track-moon"></span><span class="mode-track-sun"></span></div><div class="mode-thumb"></div></div></div></div></nav><div class="header-banner"><div class="header-banner-info"><div class="header-banner-info__title">Sea</div><div class="header-banner-info__subtitle"></div></div><div class="header-banner-arrow"><div class="header-banner-arrow__icon"><i class="fas fa-angle-down"></i></div></div></div></div></header><main class="main" id="main"><div class="main-inner"><div class="content-wrap" id="content-wrap"><div class="content" id="content"><!-- Just used to judge whether it is an article page--><div id="is-post"></div><div class="post"><header class="post-header"><h1 class="post-title">简单好用强大的个人文库管理工具——xSidebar</h1><div class="post-meta"><span class="post-meta-item post-meta-item--createtime"><span class="post-meta-item__icon"><i class="far fa-calendar-plus"></i></span><span class="post-meta-item__info">Created</span><span class="post-meta-item__value">2021-05-16</span></span><span class="post-meta-item post-meta-item--updatetime"><span class="post-meta-item__icon"><i class="far fa-calendar-check"></i></span><span class="post-meta-item__info">Updated</span><span class="post-meta-item__value">2021-05-16</span></span></div></header><div class="post-body">
+        <h3 id="软件说明">
+          <a href="#软件说明" class="heading-link"><i class="fas fa-link"></i></a>软件说明</h3>
+      
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210516071753524.png" alt="软件界面概览"></p>
+<p>此工具主要配合 markdown 文本编辑器使用，如 <code>typora</code>（强烈推荐），能够帮助你整理、检索（正则搜索很厉害）和分享个人文库中的内容。如果是搞科研的童鞋，再搭配 <code>Mendeley</code>（其他没有测试过，但理论上 bib 文件对于 zotero、jabref 都会很方便），做文献阅读笔记和写论文文草稿也十分方便，因为本软件支持导出带参考文献的 word 文档，以及导出 self-contained HTML （离线独立网页，可嵌入图片，音乐以及视频）而且还能够收集你在 markdown 文稿中插入的参考文献形成新的文献库子集。</p>
+
+        <h3 id="安装方式">
+          <a href="#安装方式" class="heading-link"><i class="fas fa-link"></i></a>安装方式</h3>
+      
+<p>下载文件解压后双击 exe 即可使用。</p>
+<p>百度网盘链接：<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://pan.baidu.com/s/1LTuK1ffHfXWII9oN3qJHug">https://pan.baidu.com/s/1LTuK1ffHfXWII9oN3qJHug</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></p>
+<p>提取码：v273</p>
+
+        <h3 id="使用方法">
+          <a href="#使用方法" class="heading-link"><i class="fas fa-link"></i></a>使用方法</h3>
+      
+
+        <h4 id="快捷键">
+          <a href="#快捷键" class="heading-link"><i class="fas fa-link"></i></a>快捷键</h4>
+      
+<ul>
+<li><code>Enter</code>：搜索关键词</li>
+<li><code>Ctrl+N</code>：新建草稿</li>
+<li><code>Ctrl+R</code>：重设软件配置参数（Reset）</li>
+</ul>
+
+        <h4 id="关键词搜索">
+          <a href="#关键词搜索" class="heading-link"><i class="fas fa-link"></i></a>关键词搜索</h4>
+      
+<ul>
+<li>仅支持多关键词 AND 搜索（精确匹配模式），多个词用空格分开即可</li>
+<li>模糊匹配建议使用正则表达式进行搜索，如<code>正则.&#123;1,3&#125;</code>可以同时匹配“正则式”、“正则模块”与“正则表达式”三个关键词，详见<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://www.runoob.com/regexp/regexp-syntax.html">菜鸟教程</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span></li>
+<li>搜索结果返回匹配文本的文件名，并在列表中显示</li>
+<li>点击搜索结果可以在消息框中预览文件 Front Matter</li>
+<li>当输入字符少于两个时，返回当前目录下的文件列表</li>
+</ul>
+
+        <h4 id="文稿列表的操作">
+          <a href="#文稿列表的操作" class="heading-link"><i class="fas fa-link"></i></a>文稿列表的操作</h4>
+      
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/1.gif" alt="右键菜单演示"></p>
+<ol>
+<li>鼠标左键单击显示文稿的 Front Matter</li>
+<li>右键召唤出菜单，执行各种针对文稿的操作</li>
+<li><code>preview</code> 生成临时网页用浏览器预览</li>
+<li><code>open</code> 调用 typora 编辑器打开文稿</li>
+<li><code>asset</code> 打开文稿对应的附录文件夹</li>
+<li><code>toHTML</code> 导出 self-contained 的 HTML 网页文件到桌面</li>
+<li><code>toDocx</code> 导出带有参考文献 bibliography 的 docx 文件到桌面</li>
+<li><code>toBib</code> 收集并导出参考文献条目到 <code>refs.bib</code> 并存放到附录文件夹</li>
+<li><code>cite</code>  引用被选中的文稿，然后自动复制 <code>:link:《[title](filename.md)》</code> 到粘贴板中，方便快捷插入对文稿的引用</li>
+<li>最后是插入附件的按钮，你可以点击按钮，选择对应的图片、音乐、视频和其它任意文件作为附属资源插入被选中的文稿中，程序会把文件拷贝到附录下，然后生成相对路径的引用文本到粘贴板，接下来只需要到 typora 粘贴即可</li>
+</ol>
+
+        <h4 id="其他重要设定">
+          <a href="#其他重要设定" class="heading-link"><i class="fas fa-link"></i></a>其他重要设定</h4>
+      
+<ul>
+<li>Open Folder 可以切换到其它文稿目录，要回到 config.yaml 设定的 postdir，可以点 reset 按钮。</li>
+<li>为避免报错，导出 HTML 和 Word 都建议在联网条件下进行，详见<a href="#%E6%97%A0%E6%B3%95%E5%AF%BC%E5%87%BA-html-%E5%92%8C-wordexe%E7%89%88">常见问题2</a></li>
+</ul>
+
+        <h3 id="程序设置">
+          <a href="#程序设置" class="heading-link"><i class="fas fa-link"></i></a>程序设置</h3>
+      
+<p>主要通过修改 <code>config.yaml</code> 文件中的配置项完成设定（详见文件内注释）。也可以在程序菜单栏（Settings）对部分设置进行修改。程序首次运行会生成默认的额 config.yaml，可以参照下方进行修改：</p>
+<figure class="highlight yaml"><div class="table-container"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意修改此配置文件内容后需reset才能生效！</span></span><br><span class="line"><span class="comment"># 定义启动目录，默认为 main.exe 的同级 logs 目录</span></span><br><span class="line"><span class="attr">postdir:</span> <span class="string">./logs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 自定义新增条目信息，跟导出 Bibtex 有关</span></span><br><span class="line"><span class="attr">user_infos:</span> </span><br><span class="line">  <span class="attr">author:</span> <span class="string">&#x27;username&#x27;</span></span><br><span class="line">  <span class="attr">journal:</span> <span class="string">&#x27;user_notes&#x27;</span></span><br><span class="line">  <span class="attr">citeRootKey:</span> <span class="string">&#x27;user_abbr&#x27;</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 有关参考文献和导出word文档以及导出html的设置</span></span><br><span class="line"><span class="comment">## ref是总文献库的bib文件路径，可以使用绝对路径指定到 mendeley 自动生成的 library.bib</span></span><br><span class="line"><span class="attr">ref:</span> <span class="string">./source/library.bib</span></span><br><span class="line"><span class="comment">## style是引文格式样式文件，可自行下载到 toWord 目录然后修改 https://www.zotero.org/styles （citing styles）</span></span><br><span class="line"><span class="attr">style:</span> <span class="string">./source/acs-nano.csl</span></span><br><span class="line"><span class="comment">## template是word文档的模板文件，若需修改模板，可参考pandoc文档</span></span><br><span class="line"><span class="attr">template:</span> <span class="string">./source/template.docx</span></span><br><span class="line"><span class="comment">## 定义导出 html 的样式，可自行修改 css 文件</span></span><br><span class="line"><span class="attr">css:</span> <span class="string">./source/markdown.css</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 导出超时设定，检查时间间隔默认 0.33 s</span></span><br><span class="line"><span class="attr">wait_time_interval:</span> <span class="number">0.33</span></span><br><span class="line"><span class="attr">html_timeout:</span> <span class="number">30</span></span><br><span class="line"><span class="attr">docx_timeout:</span> <span class="number">60</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># plugin 的路径设定</span></span><br><span class="line"><span class="attr">typora:</span> <span class="string">./plugin/Typora/Typora.exe</span></span><br><span class="line"><span class="attr">pandoc:</span> <span class="string">./plugin/Pandoc/pandoc.exe</span></span><br><span class="line"><span class="attr">snipaste:</span> <span class="string">./plugin/Snipaste/Snipaste.exe</span></span><br><span class="line"><span class="attr">screen2gif:</span> <span class="string">./plugin/Screen2gif/Screen2gif.exe</span></span><br></pre></td></tr></table></div></figure>
+
+        <h3 id="文章草稿的front-matter">
+          <a href="#文章草稿的front-matter" class="heading-link"><i class="fas fa-link"></i></a>文章草稿的Front Matter</h3>
+      
+<p>可以将文稿存放目录指定为  <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://hexo.io/zh-cn/index.html">hexo</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span> 站点的 <code>_posts</code> 目录，生成文稿符合 hexo 文章要求，具有 Front Matter，同时已经适配了 hexo 的 <span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://theme-stun.github.io/docs/zh-CN/">stun 主题</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>，所以 Front Matter 默认具有以下内容：</p>
+<ul>
+<li>title：标题，不能为空，若创建时不写标题，则以当天日期为题，如20210429</li>
+<li>excerpt：摘要，不能为空，使用提示作为占位</li>
+<li>date：时间戳，不能为空，自动生成</li>
+<li>tags：文稿的标签，自由定义，最好不超过五个</li>
+<li>categories：文稿的分类，默认分类为草稿</li>
+</ul>
+
+        <h3 id="插入引文的word导出测试">
+          <a href="#插入引文的word导出测试" class="heading-link"><i class="fas fa-link"></i></a>插入引文的word导出测试</h3>
+      
+<p>这里只是测试一下插入参考文献[@Kalinin2020;@Hayman2021;@Liu2021b]</p>
+<p>另外还可以看下上下标，比如 H<sub>2</sub>O 和 Mg<sup>2+</sup>。</p>
+
+        <h3 id="html导出测试">
+          <a href="#html导出测试" class="heading-link"><i class="fas fa-link"></i></a>HTML导出测试</h3>
+      
+<p>这是一段<strong>加粗文字，同时它也会被高亮显示</strong>（浅蓝色底色）。</p>
+<p>这是行内代码 <code>hello</code>，它是带有圆角的灰色。</p>
+<blockquote>
+<p>这是引用块，其实用得不多</p>
+</blockquote>
+<p>这是一段代码，我就随便写写了。</p>
+<p>也可以插入一些<span class="exturl"><a class="exturl__link" target="_blank" rel="noopener" href="https://cn.bing.com/">链接</a><span class="exturl__icon"><i class="fas fa-external-link-alt"></i></span></span>。</p>
+<p>但是并不推荐使用脚注，因为会跟 word 中插入的参考文献冲突。</p>
+
+        <h4 id="插入音频">
+          <a href="#插入音频" class="heading-link"><i class="fas fa-link"></i></a>插入音频</h4>
+      
+<p>《Time Travel》</p>
+<p><code>&lt;audio controls src=&quot;README/Time&amp;nbsp;travel_岸部眞明.mp3&quot;&gt;&lt;/audio&gt;</code></p>
+<p><audio controls src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/Time%C2%A0travel_%E5%B2%B8%E9%83%A8%E7%9C%9E%E6%98%8E.mp3"></audio></p>
+<blockquote>
+<p>仅支持 mp3 或者 m4a 文件；文件命名不要有空格，可以用下划线代替。</p>
+</blockquote>
+
+        <h4 id="插入视频">
+          <a href="#插入视频" class="heading-link"><i class="fas fa-link"></i></a>插入视频</h4>
+      
+<p><code>&lt;video controls src=&quot;README/StartMenu_Win10.mp4&quot;&gt;&lt;/video&gt;</code></p>
+<p><video controls src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/StartMenu_Win10.mp4"></video></p>
+<blockquote>
+<p>仅支持 mp4 格式文件；建议不要插入太大的 mp4 文件导致 导出 self-contained HTML 时间太长！</p>
+</blockquote>
+
+        <h3 id="其它问题">
+          <a href="#其它问题" class="heading-link"><i class="fas fa-link"></i></a>其它问题</h3>
+      
+
+        <h4 id="gui界面缩放异常">
+          <a href="#gui界面缩放异常" class="heading-link"><i class="fas fa-link"></i></a>GUI界面缩放异常</h4>
+      
+<p>对于一些分辨率很高的屏幕，系统缩放导致界面显示异常，这个时候需要对 python.exe 进行兼容性设置（右键属性》兼容性》更改高DPI设置》替代高DPI缩放行为》<strong>系统增强</strong>）。</p>
+<blockquote>
+<p>本程序在 15.6 英寸笔记本电脑屏幕，125%的推荐缩放下取得最好的显示效果。</p>
+</blockquote>
+
+        <h4 id="无法导出-html-和-docx">
+          <a href="#无法导出-html-和-docx" class="heading-link"><i class="fas fa-link"></i></a>无法导出 html 和 docx</h4>
+      
+<p>导出带参考文献的 docx 根据所使用的 csl 样式文件规定，可能需要联网。导出嵌入图片的 html 文件时，如果图片是指向网络图片而非本地附录文件夹中的图片，则需要联网。</p>
+
+        <h4 id="typora-设置">
+          <a href="#typora-设置" class="heading-link"><i class="fas fa-link"></i></a>typora 设置</h4>
+      
+<p>如果你使用 typora 作为自己主要的 markdown 文档编辑器，注意设置图片选项如下所示，以便支持图片的快捷插入（无需到 xSidebar 去 addImage）：</p>
+<p><img src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/image-20210516075630757.png" alt="typora-图像设置"></p>
+<p>其它注意事项：</p>
+<ol>
+<li>typora 支持拖拽 gif，或者复制粘贴板中的图片 png 到文档中，可以配合 Screen2gif 录频工具、以及Snipaste 截图工具使用</li>
+<li>其它文件如音频和视频，建议使用 xSidebar 提供的右键菜单插入</li>
+</ol>
+
+        <h3 id="参考文献">
+          <a href="#参考文献" class="heading-link"><i class="fas fa-link"></i></a>参考文献</h3>
+      
+<blockquote>
+<p>bibliography 会添加到整个文档的后面。</p>
+</blockquote>
+</div><footer class="post-footer"><div class="post-copyright copyright"><div class="copyright-author"><span class="copyright-author__name">Author: </span><span class="copyright-author__value"><a href="https://sheldonxxd.github.io">Xiaodong Xie</a></span></div><div class="copyright-link"><span class="copyright-link__name">Link: </span><span class="copyright-link__value"><a href="https://sheldonxxd.github.io/2021/05/16/20210516-xSidebar/">https://sheldonxxd.github.io/2021/05/16/20210516-xSidebar/</a></span></div><div class="copyright-notice"><span class="copyright-notice__name">Copyright: </span><span class="copyright-notice__value">All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" rel="external nofollow" target="_blank">BY-NC-SA</a> unless stating additionally</span></div></div><div class="post-tags"><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/markdown/">markdown</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/xSidebar/">xSidebar</a></span><span class="post-tags-item"><span class="post-tags-item__icon"><i class="fas fa-tag"></i></span><a class="post-tags-item__link" href="https://sheldonxxd.github.io/tags/pyQt5/">pyQt5</a></span></div><nav class="post-paginator paginator"><div class="paginator-next"><a class="paginator-next__link" href="/2021/05/06/pandoc_md2html/"><span class="paginator-prev__text">利用 pandoc 把 markdown 文稿转换为独立 html 文件</span><span class="paginator-next__icon"><i class="fas fa-angle-right"></i></span></a></div></nav></footer></div></div><div class="comments" id="comments"><div id="valine-container"></div></div></div><div class="sidebar-wrap" id="sidebar-wrap"><aside class="sidebar" id="sidebar"><div class="sidebar-nav"><span class="sidebar-nav-toc current">Catalog</span><span class="sidebar-nav-ov">Overview</span></div><section class="sidebar-toc"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E8%AF%B4%E6%98%8E"><span class="toc-text">
+          软件说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F"><span class="toc-text">
+          安装方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">
+          使用方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-text">
+          快捷键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E8%AF%8D%E6%90%9C%E7%B4%A2"><span class="toc-text">
+          关键词搜索</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E7%A8%BF%E5%88%97%E8%A1%A8%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-text">
+          文稿列表的操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%87%8D%E8%A6%81%E8%AE%BE%E5%AE%9A"><span class="toc-text">
+          其他重要设定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E7%BD%AE"><span class="toc-text">
+          程序设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E7%AB%A0%E8%8D%89%E7%A8%BF%E7%9A%84front-matter"><span class="toc-text">
+          文章草稿的Front Matter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E5%BC%95%E6%96%87%E7%9A%84word%E5%AF%BC%E5%87%BA%E6%B5%8B%E8%AF%95"><span class="toc-text">
+          插入引文的word导出测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#html%E5%AF%BC%E5%87%BA%E6%B5%8B%E8%AF%95"><span class="toc-text">
+          HTML导出测试</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E9%9F%B3%E9%A2%91"><span class="toc-text">
+          插入音频</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E8%A7%86%E9%A2%91"><span class="toc-text">
+          插入视频</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E9%97%AE%E9%A2%98"><span class="toc-text">
+          其它问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#gui%E7%95%8C%E9%9D%A2%E7%BC%A9%E6%94%BE%E5%BC%82%E5%B8%B8"><span class="toc-text">
+          GUI界面缩放异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E5%AF%BC%E5%87%BA-html-%E5%92%8C-docx"><span class="toc-text">
+          无法导出 html 和 docx</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typora-%E8%AE%BE%E7%BD%AE"><span class="toc-text">
+          typora 设置</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="toc-text">
+          参考文献</span></a></li></ol></section><!-- ov = overview--><section class="sidebar-ov hide"><div class="sidebar-ov-author"><div class="sidebar-ov-author__avatar"><img class="sidebar-ov-author__avatar_img" src="https://sheldon-notes.oss-cn-shanghai.aliyuncs.com/img/github-logo.png" alt="avatar"></div><p class="sidebar-ov-author__text">水滴石穿</p></div><div class="sidebar-ov-state"><a class="sidebar-ov-state-item sidebar-ov-state-item--posts" href="/archives/"><div class="sidebar-ov-state-item__count">39</div><div class="sidebar-ov-state-item__name">Archives</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--categories" href="/categories/"><div class="sidebar-ov-state-item__count">7</div><div class="sidebar-ov-state-item__name">Categories</div></a><a class="sidebar-ov-state-item sidebar-ov-state-item--tags" href="/tags/"><div class="sidebar-ov-state-item__count">55</div><div class="sidebar-ov-state-item__name">Tags</div></a></div><div class="sidebar-ov-cc"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en" target="_blank" rel="noopener" data-popover="Creative Commons" data-popover-pos="up"><img src="/images/cc-by-nc-sa.svg"></a></div></section><div class="sidebar-reading"><div class="sidebar-reading-info"><span class="sidebar-reading-info__text">You have read </span><span class="sidebar-reading-info__num">0</span><span class="sidebar-reading-info__perc">%</span></div><div class="sidebar-reading-line"></div></div></aside></div><div class="clearfix"></div></div></main><footer class="footer" id="footer"><div class="footer-inner"><div><span>Copyright © 2021</span><span class="footer__icon"><i class="fas fa-heart"></i></span><span>Xiaodong Xie</span></div><div><span>Powered by <a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a></span><span> v5.3.0</span><span class="footer__devider">|</span><span>Theme - <a href="https://github.com/liuyib/hexo-theme-stun/" title="Stun" target="_blank" rel="noopener">Stun</a></span><span> v2.4.0</span></div></div></footer><div class="loading-bar" id="loading-bar"><div class="loading-bar__progress"></div></div><div class="back2top" id="back2top"><span class="back2top__icon"><i class="fas fa-rocket"></i></span></div></div><div class="search-mask"></div><div class="search-popup"><span class="search-close"></span><div class="search-input"><input placeholder="Search for Posts (Support multiple keywords)"></div><div class="search-results"></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@v3.4.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.min.js"></script><script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.2/velocity.ui.min.js"></script><script src="https://cdn.jsdelivr.net/npm/ribbon.js@latest/dist/ribbon.min.js" size="120" alpha="0.6" zIndex="-1"></script><script>function initSearch() {
+  var isXML = true;
+  var search_path = 'search.json';
+
+  if (!search_path) {
+    search_path = 'search.xml';
+  } else if (/json$/i.test(search_path)) {
+    isXML = false;
+  }
+
+  var path = '/' + search_path;
+  $.ajax({
+    url: path,
+    dataType: isXML ? 'xml' : 'json',
+    async: true,
+    success: function (res) {
+      var datas = isXML ? $('entry', res).map(function () {
+        // 将 XML 转为 JSON
+        return {
+          title: $('title', this).text(),
+          content: $('content', this).text(),
+          url: $('url', this).text()
+        };
+      }).get() : res;
+      var $input = $('.search-input input');
+      var $result = $('.search-results');
+      // 搜索对象（标题、内容）的权重，影响显示顺序
+      var WEIGHT = { title: 100, content: 1 };
+      var searchPost = function () {
+        var searchText = $input.val().toLowerCase().trim();
+        // 根据空白字符分隔关键字
+        var keywords = searchText.split(/[\s]+/);
+        // 搜索结果
+        var matchPosts = [];
+
+        // 有多个关键字时，将原文字整个保存下来
+        if (keywords.length > 1) {
+          keywords.push(searchText);
+        }
+        // 防止未输入字符时搜索
+        if (searchText.length > 0) {
+          datas.forEach(function (data) {
+            var isMatch  = false;
+            // 没有标题的文章使用预设的 i18n 变量代替
+            var title = (data.title && data.title.trim()) || '[ Untitled ]';
+            var titleLower = title && title.toLowerCase();
+            // 删除 HTML 标签 和 所有空白字符
+            var content = data.content && data.content.replace(/<[^>]+>/g, '');
+            var contentLower = content && content.toLowerCase();
+            // 删除重复的 /
+            var postURL = data.url && decodeURI(data.url).replace(/\/{2,}/g, '/');
+            // 标题中匹配到的关键词
+            var titleHitSlice = [];
+            // 内容中匹配到的关键词
+            var contentHitSlice = [];
+
+            keywords.forEach(function (keyword) {
+              /**
+              * 获取匹配的关键词的索引
+              * @param {String} keyword 要匹配的关键字
+              * @param {String} text 原文字
+              * @param {Boolean} caseSensitive 是否区分大小写
+              * @param {Number} weight 匹配对象的权重。权重大的优先显示
+              * @return {Array}
+              */
+              function getIndexByword (word, text, caseSensitive, weight) {
+                if (!word || !text) {
+                  return [];
+                };
+
+                var startIndex = 0; // 每次匹配的开始索引
+                var index = -1;     // 匹配到的索引值
+                var result = [];    // 匹配结果
+
+                if (!caseSensitive) {
+                  word = word.toLowerCase();
+                  text = text.toLowerCase();
+                }
+
+                while((index = text.indexOf(word, startIndex)) !== -1) {
+                  var hasMatch = false;
+                  // 索引位置相同的关键词，保留长度较长的
+                  titleHitSlice.forEach(function (hit) {
+                    if (hit.index === index && hit.word.length < word.length) {
+                      hit.word = word;
+                      hasMatch = true;
+                    }
+                  });
+                  startIndex = index + word.length;
+                  !hasMatch && result.push({ index: index, word: word, weight: weight });
+                }
+                return result;
+              }
+              titleHitSlice = titleHitSlice.concat(getIndexByword(keyword, titleLower, false, WEIGHT.title));
+              contentHitSlice = contentHitSlice.concat(getIndexByword(keyword, contentLower, false, WEIGHT.content));
+            });
+
+            var hitTitle = titleHitSlice.length;
+            var hitContent = contentHitSlice.length;
+
+            if (hitTitle > 0 || hitContent > 0) {
+              isMatch = true;
+            }
+            if (isMatch) {
+              ;[titleHitSlice, contentHitSlice].forEach(function (hit) {
+                // 按照匹配文字的索引的递增顺序排序
+                hit.sort(function (left, right) {
+                  return left.index - right.index;
+                });
+              });
+              /**
+              * 给文本中匹配到的关键词添加标记，从而进行高亮显示
+              * @param {String} text 原文本
+              * @param {Array} hitSlice 匹配项的索引信息
+              * @param {Number} start 开始索引
+              * @param {Number} end 结束索引
+              * @return {String}
+              */
+              function highlightKeyword (text, hitSlice, start, end) {
+                if (!text || !hitSlice || !hitSlice.length) {
+                  return;
+                }
+
+                var result = '';
+                var startIndex = start;
+                var endIndex = end;
+                hitSlice.forEach(function (hit) {
+                  if (hit.index < startIndex) {
+                    return;
+                  }
+
+                  var hitWordEnd = hit.index + hit.word.length;
+                  result += text.slice(startIndex, hit.index);
+                  result += '<b>' + text.slice(hit.index, hitWordEnd) + '</b>';
+                  startIndex = hitWordEnd;
+                });
+                result += text.slice(startIndex, endIndex);
+                return result;
+              }
+
+              var postData = {};
+              // 文章总的搜索权重
+              var postWeight = titleHitSlice.length * WEIGHT.title + contentHitSlice.length * WEIGHT.content;
+              // 标记匹配关键词后的标题
+              var postTitle = highlightKeyword(title, titleHitSlice, 0, title.length) || title;
+              // 标记匹配关键词后的内容
+              var postContent;
+              // 显示内容的长度
+              var SHOW_WORD_LENGTH = 200;
+              // 命中关键词前的字符显示长度
+              var SHOW_WORD_FRONT_LENGTH = 20;
+              var SHOW_WORD_END_LENGTH = SHOW_WORD_LENGTH - SHOW_WORD_FRONT_LENGTH;
+
+              // 截取匹配的第一个字符，前后共 200 个字符来显示
+              if (contentHitSlice.length > 0) {
+                var firstIndex = contentHitSlice[0].index;
+                var start = firstIndex > SHOW_WORD_FRONT_LENGTH ? firstIndex - SHOW_WORD_FRONT_LENGTH : 0;
+                var end = firstIndex + SHOW_WORD_END_LENGTH;
+                postContent = highlightKeyword(content, contentHitSlice, start, end);
+              } else { // 未匹配到内容，直接截取前 200 个字符来显示
+                postContent = content.slice(0, SHOW_WORD_LENGTH);
+              }
+              postData.title = postTitle;
+              postData.content = postContent;
+              postData.url = postURL;
+              postData.weight = postWeight;
+              matchPosts.push(postData);
+            }
+          });
+        }
+
+        var resultInnerHtml = '';
+        if (matchPosts.length) {
+          // 按权重递增的顺序排序，使权重大的优先显示
+          matchPosts.sort(function (left, right) {
+            return right.weight - left.weight;
+          });
+          resultInnerHtml += '<ul>';
+          matchPosts.forEach(function (post) {
+            resultInnerHtml += '<li><a class="search-results-title" href="' + post.url + '">';
+            resultInnerHtml += post.title;
+            resultInnerHtml += '</a><div class="search-results-content">';
+            resultInnerHtml += post.content;
+            resultInnerHtml += '</div></li>';
+          });
+          resultInnerHtml += '</ul>';
+        } else {
+          resultInnerHtml += '<div class="search-results-none"><i class="far fa-meh"></i></div>';
+        }
+        $result.html(resultInnerHtml);
+      };
+      $input.on('input', searchPost);
+      $input.on('keyup', function (e) {
+        if (e.keyCode === Stun.utils.codeToKeyCode('Enter')) {
+          searchPost();
+        }
+      });
+    }
+  });
+}
+
+function closeSearch () {
+  $('body').css({ overflow: 'auto' });
+  $('.search-popup').css({ display: 'none' });
+  $('.search-mask').css({ display: 'none' });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+  Stun.utils.pjaxReloadLocalSearch = function () {
+    $('.header-nav-search').on('click', function (e) {
+      e.stopPropagation();
+      $('body').css('overflow', 'hidden');
+      $('.search-popup')
+        .velocity('stop')
+        .velocity('transition.expandIn', {
+          duration: 300,
+          complete: function () {
+            $('.search-popup input').focus();
+          }
+        });
+      $('.search-mask')
+        .velocity('stop')
+        .velocity('transition.fadeIn', {
+          duration: 300
+        });
+
+      initSearch();
+    });
+    $('.search-mask, .search-close').on('click', function () {
+      closeSearch();
+    });
+    $(document).on('keydown', function (e) {
+      // Escape <=> 27
+      if (e.keyCode === Stun.utils.codeToKeyCode('Escape')) {
+        closeSearch();
+      }
+    });
+  };
+
+  Stun.utils.pjaxReloadLocalSearch();
+}, false);
+
+function safeOpenUrl(url) {
+  var newTab = window.open();
+  newTab.opener = null;
+  newTab.location = url;
+}
+
+function extSearch(engine) {
+  var engines = {
+    google: 'https://www.google.com/search?q=',
+    bing: 'https://cn.bing.com/search?q=',
+    baidu: 'https://www.baidu.com/s?ie=UTF-8&wd=',
+  };
+  var host = window.location.host;
+  var query = $('.search-input input').val().toLowerCase().trim();
+  var uri = engines[engine] + query + ' site:' + host;
+
+  if (query) {
+    safeOpenUrl(uri);
+  } else {
+    Stun.utils.popAlert('warning', 'Please enter characters');
+  }
+}
+
+var assistSearchList = window.CONFIG.assistSearch;
+
+if (Array.isArray(assistSearchList)) {
+  assistSearchList.forEach(function (name) {
+    document.querySelector('.search-btns-item--' + name).addEventListener('click', function () {
+      extSearch(name);
+    }, false);
+  });
+}</script><script src="https://cdn.jsdelivr.net/npm/leancloud-storage@latest/dist/av-min.js"></script><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function loadValine () {
+  var GUEST_INFO = ['nick', 'mail', 'link'];
+  var guest_info = 'nick,mail,link';
+
+  guest_info = guest_info.split(',').filter(function(item) {
+    return GUEST_INFO.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#valine-container',
+    appId: '0gcYbA1TK5HEHNGtnT0Nm4Bz-9Nh9j0Va',
+    appKey: 'k7pXknc0TbFWRs8E591EH6jE',
+    notify: true,
+    verify: true,
+    placeholder: 'sea-comments',
+    avatar: 'mp',
+    meta: guest_info,
+    pageSize: '10' || 10,
+    visitor: false,
+    recordIP: false,
+    lang: '' || 'zh-cn',
+    path: window.location.pathname
+  });
+}
+
+if (false) {
+  loadValine();
+} else {
+  window.addEventListener('DOMContentLoaded', loadValine, false);
+}</script><script src="/js/utils.js?v=2.4.0"></script><script src="/js/stun-boot.js?v=2.4.0"></script><script src="/js/scroll.js?v=2.4.0"></script><script src="/js/header.js?v=2.4.0"></script><script src="/js/sidebar.js?v=2.4.0"></script><script type="application/json" src="/search.json"></script></body></html>
